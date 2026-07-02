@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ordeal</title>
+	<link rel="stylesheet" href="style.css" />
+	<link class="icon" href="Assets/icons/icon.png" type="image/png"/>
+</head>
+
+<body>
+	<div class="layout max-width">
+
+		<aside class="sidebar card">
+			<header class="layout_1">
+				<h1 class="title">Ordeal To Do</h1>
+				<button type="button" class="field click" id="toggle-calendar">Calendar</button>
+			</header>
+			<hr/>
+
+			<div class="board" id="Board-list"></div>
+
+			<hr/>
+			<div class="layout_2">
+				<input type="text" placeholder="List title" class="selectable field task click" id="Input-list" />
+				<button type="button" class="field click add" id="Add-list">+</button>
+			</div>
+		</aside>
+
+		<main class="main card">
+			<div class="layout_1">
+				<h2 class="title" id="Current-list-title">Current list title</h2>
+				<div class="layout_1">
+					<button type="button" class="field click" id="Order">Order</button>
+					<button type="button" class="field click" id="Filter">Filter</button>
+				</div>
+			</div>
+			<hr/>
+
+			<div class="board" id="Board-task"></div>
+			<hr/>
+			
+			<div class="field task layout_1">
+				<span>Social points:</span> 
+				<span id="progress-percent">0</span>
+			</div>
+		</main>
+
+		<aside class="details card">
+			<div class="layout_1">
+				<div class="layout_2">
+					<button type="button" class="field click" id="create">Create</button>
+					<button type="button" class="field click" id="remove">Remove</button>
+				</div>
+				<div class="layout_2">
+					<button type="button" class="field click" id="group">Group</button>
+					<button type="button" class="field click" id="date">Date</button>
+				</div>
+			</div>
+			<hr />
+			
+			<div class="layout_3">
+				<textarea class="field task dark" id="Title-task" maxlength="100" style="font-weight: bold;" placeholder="Task title"></textarea>
+				<textarea id="Detail-task" maxlength="600" class="field task dark" style="font-weight: bold;" placeholder="Task description"></textarea>
+			</div>
+			<hr />
+			
+			<div class="layout_2">
+				<div class="field click task layout_1 button" style="width: 100%;"> Assign task to </div>
+				
+				<button type="button" class="field click add" id="Btn-task-date">R1</button>
+				<button type="button" class="field click add" id="Btn-task-repeat">R2</button>
+			</div>
+		</aside>
+
+		<section class="card" id="calendar"></section>
+
+		<section class="stats card">
+			<div class="field click task layout_1 button">
+				<span>Chat</span>
+			</div>
+		</section>
+
+		<section class="stats card">
+			<div class="field click task layout_1 button">
+				<span>Account stats</span> 
+			</div>
+		</section>
+
+		<section class="stats card">
+			<div class="layout_2">
+				<div class="selectable field task click" id="Btn-config-display" style="width: 100%;"> Configuration </div>
+				
+				<button type="button" class="field click add" id="Btn-add-friend">A</button>
+				<button type="button" class="field click add" id="Btn-account-settings">F</button>
+			</div>
+		</section>
+		
+	</div>
+
+	<script src="script.js"></script>
+</body>
+</html>
