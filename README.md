@@ -75,7 +75,6 @@ This project is still an early version. Several interface elements are visible b
 - The calendar section is only a placeholder.
 - Task ordering and filtering buttons do not yet perform their final behavior.
 - Social points are only displayed for now.
-- There is no data persistence yet, so reloading the page resets the current state.
 - Many advanced social features are still conceptual.
 
 ## Running the project
@@ -98,7 +97,6 @@ Contributions are welcome, especially for:
 
 - responsive layout improvements,
 - calendar implementation,
-- persistence with local storage or a backend,
 - task editing,
 - social points logic,
 - UI icons and visual polish.
