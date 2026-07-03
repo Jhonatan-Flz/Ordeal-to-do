@@ -16,9 +16,18 @@ const boardTask = document.getElementById('Board-task');
 const inputTask = document.getElementById('Title-task');
 const detailTaskInput = document.getElementById('Detail-task');
 
+// Group Modal Variables
+const btnGroup = document.getElementById('group');
+const modalGroup = document.getElementById('Modal-group');
+const btnCloseGroup = document.getElementById('Close-group');
+const inputGroup = document.getElementById('Input-group');
+const btnAddGroup = document.getElementById('Add-group');
+const boardGroup = document.getElementById('Board-group');
+
 // Local Storage
 let state = JSON.parse (localStorage.getItem('ordealData')) || {
     lists: [],
+    groups: [],
     activeListId: null,
     activeTaskId: null
 };
@@ -307,6 +316,64 @@ currentListTitle.addEventListener('blur', () => {
             saveData();
             renderLists(); 
         }
+    }
+});
+
+// Group Modal Functions
+function renderGroups() {
+    boardGroup.innerHTML = '';
+    
+    state.groups.forEach(group => {
+        const groupEl = document.createElement('div');
+        groupEl.className = 'field task click layout_1';
+        
+        const titleSpan = document.createElement('span');
+        titleSpan.textContent = group.name;
+        
+        const deleteBtn = document.createElement('div');
+        deleteBtn.className = 'delete-list-btn';
+        
+        deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            state.groups = state.groups.filter(g => g.id !== group.id);
+            saveData();
+            renderGroups();
+        });
+        
+        groupEl.appendChild(titleSpan);
+        groupEl.appendChild(deleteBtn);
+        boardGroup.appendChild(groupEl);
+    });
+}
+
+btnGroup.addEventListener('click', () => {
+    modalGroup.style.display = 'flex';
+    renderGroups();
+});
+
+btnCloseGroup.addEventListener('click', () => {
+    modalGroup.style.display = 'none';
+    inputGroup.value = '';
+});
+
+btnAddGroup.addEventListener('click', () => {
+    const groupName = inputGroup.value.trim();
+    if (groupName !== '') {
+        const newGroup = {
+            id: generateId(),
+            name: groupName
+        };
+        state.groups.push(newGroup);
+        inputGroup.value = '';
+        saveData();
+        renderGroups();
+    }
+});
+
+inputGroup.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        btnAddGroup.click();
     }
 });
 
