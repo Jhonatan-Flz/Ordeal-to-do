@@ -13,29 +13,26 @@ At the moment, the project focuses on the core task management loop. You can cre
 - Remove the selected task.
 - Delete entire lists.
 - Switch between the main to-do view and a calendar view placeholder.
-- Auto-resize the task title field while typing.
-- Use `Enter` to create a new list or task faster.
-- Display a “Social points” counter in the interface.
 
 ## Planned features
 
 The codebase and UI already suggest several planned features that are not implemented yet:
 
-- Social points economy with rewards, penalties, and future shop-like advantages.
-- Chat panel for choosing between friends or an AI assistant.
-- Task ordering by alphabetic order or by date.
-- Task filtering by groups or categories.
-- Group management with icons and custom colors.
+- Task filtering by user added groups/categories.
+- Task ordering by alphabetic order or due date.
 - Date assignment for tasks, including a calendar display.
-- Task assignment to friends or contacts with adjustable points.
 - Reminders with date and time.
 - Repeating tasks that can reset automatically after completion.
+- Task details fully editable.
 - Account administration.
 - Friend management and social challenge mechanics.
-- Better keyboard shortcuts.
-- Full responsive design.
-- A complete task detail editor with save/load behavior.
+- Task assignment to friends or contacts with adjustable points.
+- Chat panel for choosing between friends or an AI assistant.
+- Social points earning system managed by AI, for now is just a display.
+- Social points economy with rewards, penalties, and future shop-like advantages.
 - A functional calendar system.
+- A complete keyboard shortcuts list.
+- Full responsive design.
 
 ## Project structure
 
@@ -66,16 +63,6 @@ The center panel is the main task board. It shows the tasks for the currently se
 The right panel is the task details area. It contains controls for creating and removing tasks, buttons for grouping and assigning dates, a text field for the task title, a larger field for task details, and buttons for assigning tasks or reminders.
 
 The JavaScript logic is entirely DOM-based. Lists and tasks are created dynamically in the browser, and the selected list controls which task container is visible. Task completion is handled by toggling a class on the task element, and deletion is done directly from the active selection.
-
-## Current limitations
-
-This project is still an early version. Several interface elements are visible but not yet connected to full logic. In particular:
-
-- Task details are not yet editable in a complete way.
-- The calendar section is only a placeholder.
-- Task ordering and filtering buttons do not yet perform their final behavior.
-- Social points are only displayed for now.
-- Many advanced social features are still conceptual.
 
 ## Running the project
 

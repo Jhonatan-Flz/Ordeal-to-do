@@ -6,8 +6,8 @@
 	--muted_2: #eeeeee;
 	--muted_3: #dcdcdc;
 	--muted_4: #cccccc;
-	--muted_5: #eeeeee8c;
-	--hex_1: #c2ceffa3;
+	--muted_5: #eeeeee7d;
+	--hex_1: #cdd7ff95;
 	--hex_2: #c4ebff58;
 	--hex_3: #000000;
 	font-family: 'Segoe UI', sans-serif, system-ui;
@@ -36,7 +36,8 @@ input {
 
 input:focus,
 button:focus,
-textarea {
+textarea,
+#Current-list-title:focus {
 	outline: none;
 }
 
@@ -127,63 +128,43 @@ textarea {
 .task.done {
 	opacity: 0.4;
 	text-decoration: line-through;
-	border: 1px solid var(--muted_1);
 }
 
 .task span {
 	word-break: break-word;
 }
 
-.task-date {
-	font-size: 10px;
-	color: var(--muted_1);
-	margin-left: auto;
-	background: var(--muted_2);
-	padding: 2px 6px;
-	border-radius: 4px;
-}
-
 /* Circles & Buttons */
-.circle {
+.circle, .delete-list-btn {
 	width: 16px;
 	height: 16px;
 	border: 1px solid var(--muted_1);
+	opacity: 0.5;
 	border-radius: 50%;
-	margin-right: 8px;
 	cursor: pointer;
 	transition: background 0.4s, color 0.4s, border-color 0.4s;
 	flex-shrink: 0;
 }
 
-.delete-list-btn {
-	width: 16px;
-	height: 16px;
-	border: 1px solid var(--muted_1);
-	border-radius: 50%;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 11px;
-	font-weight: bold;
-	line-height: 1;
-	transition: background 0.4s, color 0.4s, border-color 0.4s;
+.circle {
+	margin-right: 8px;
 }
 
 .delete-list-btn:hover,
 .circle:hover {
-	background-color: var(--muted_1);
-	border-color: var(--muted_1);
+	border-color: var(--hex_3);
 	scale: 1.1;
 }
 
 .task.done .circle {
+	opacity: 0.4;
 	background-color: var(--muted_1);
+	border-color: var(--hex_3);
 }
 
 .task.done .circle:hover {
+	opacity: 0.8;
 	background-color: var(--muted_2);
-	border-color: var(--hex_3);
 }
 
 .btn-active {
@@ -208,15 +189,56 @@ textarea {
 	height: auto;
 }
 
+#Current-list-title {
+	max-width: 480px;
+	width: 100%; 
+	white-space: nowrap;
+	overflow: hidden;
+	text-shadow: none;
+	text-overflow: ellipsis;
+	transition: all 0.1s;
+}
+
+/* Modals */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 100;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	align-items: center;
+	justify-content: center;
+	backdrop-filter: blur(2px);
+}
+
+.modal-content {
+	width: 400px;
+	max-width: 90%;
+	display: flex;
+	flex-direction: column;
+}
+
 /* 4. UTILITY CLASSES */
 .click {
 	cursor: pointer;
 	transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
-.click:hover, .field.selected:hover {
+.click:hover {
 	background: var(--muted_2);
-	border-color: #bcbcbc5a;
+	border-color: var(--muted_5);
+}
+
+.field.selected:hover {
+	background: var(--hex_1);
+	border-color: var(--muted_5);
+}
+
+.task.selected:hover {
+	border: 1px solid var(--hex_1);
 }
 
 .click:active {
@@ -248,6 +270,11 @@ input.click:hover {
 	width: 40px;
 }
 
+#Current-list-title:hover {
+	cursor: text;
+	color: var(--hex_3);
+}
+
 /* 5. PSEUDO-ELEMENTS & PSEUDO-CLASSES */
 ::-webkit-scrollbar {
 	display: none;
@@ -257,10 +284,16 @@ input.click:hover {
 	background-color: var(--hex_2);
 }
 
-/* 6. LAYOUT & GRID */
+/* 6. Calendar related styles */
+#calendar {
+	grid-column: span 2;
+	display: none;
+}
+
+/* 7. LAYOUT & GRID */
 .layout {
 	display: grid;
-	grid-template-columns: 280px 1fr 420px;
+	grid-template-columns: 300px 1fr 420px;
 	gap: 18px;
 	margin: 40px auto;
 	height: 100%;
@@ -283,9 +316,4 @@ input.click:hover {
 	flex-direction: column;
 	gap: 8px;
 	flex-grow: 1;
-}
-
-#calendar {
-	grid-column: span 2;
-	display: none;
 }

@@ -1,3 +1,4 @@
+// Variables
 const sidebarView = document.querySelector('.sidebar.card');
 const btnCalendar = document.getElementById('toggle-calendar');
 const mainView = document.querySelector('.main.card');
@@ -12,10 +13,11 @@ const currentListTitle = document.getElementById('Current-list-title');
 const btnCreateTask = document.getElementById('create');
 const btnRemoveTask = document.getElementById('remove');
 const boardTask = document.getElementById('Board-task');
-const titleTaskInput = document.getElementById('Title-task');
+const inputTask = document.getElementById('Title-task');
 const detailTaskInput = document.getElementById('Detail-task');
 
-let state = JSON.parse(localStorage.getItem('ordealData')) || {
+// Local Storage
+let state = JSON.parse (localStorage.getItem('ordealData')) || {
     lists: [],
     activeListId: null,
     activeTaskId: null
@@ -25,10 +27,12 @@ function saveData() {
     localStorage.setItem('ordealData', JSON.stringify(state));
 }
 
+// Utility Functions
 function generateId() {
     return Date.now().toString(36) + Math.random().toString(36).substring(2);
 }
 
+// Rendering Functions
 function renderAll() {
     renderLists();
     renderTasks();
@@ -65,12 +69,19 @@ function renderLists() {
             renderAll();
         });
 
-        listEl.addEventListener('click', () => {
-            state.activeListId = list.id;
-            state.activeTaskId = null;
-            saveData();
-            renderAll();
-        });
+			listEl.addEventListener('click', () => {
+		if (state.activeListId === list.id) {
+			state.activeListId = null;
+		} else {
+			state.activeListId = list.id;
+		}
+		
+		state.activeTaskId = null;
+		state.pendingGroupId = null;
+		
+		saveData();
+		renderAll();
+});
 
         listEl.appendChild(titleSpan);
         listEl.appendChild(deleteBtn);
@@ -111,10 +122,12 @@ function renderTasks() {
         });
 
         taskEl.addEventListener('click', () => {
-            state.activeTaskId = task.id;
-            saveData();
-            renderAll();
-        });
+		state.activeTaskId = (state.activeTaskId === task.id) ? null : task.id;
+		state.pendingGroupId = null; 
+		
+		saveData();
+		renderAll();
+		});
 
         taskEl.appendChild(circleEl);
         taskEl.appendChild(nameSpan);
@@ -128,11 +141,11 @@ function renderDetails() {
         if (activeList) {
             const activeTask = activeList.tasks.find(t => t.id === state.activeTaskId);
             if (activeTask) {
-                titleTaskInput.value = activeTask.title;
+                inputTask.value = activeTask.title;
                 detailTaskInput.value = activeTask.description || '';
                 
-                titleTaskInput.style.height = '40px';
-                titleTaskInput.style.height = titleTaskInput.scrollHeight + 'px';
+                inputTask.style.height = '40px';
+                inputTask.style.height = inputTask.scrollHeight + 'px';
                 
                 btnCreateTask.textContent = 'Save';
                 return;
@@ -140,12 +153,13 @@ function renderDetails() {
         }
     }
     
-    titleTaskInput.value = '';
+    inputTask.value = '';
     detailTaskInput.value = '';
-    titleTaskInput.style.height = '40px';
+    inputTask.style.height = '40px';
     btnCreateTask.textContent = 'Create';
 }
 
+// Button Event Listeners
 btnCalendar.addEventListener('click', () => {
     const isCalendarOpen = calendarView.style.display === 'block';
     const headerElement = sidebarView.querySelector('header');
@@ -203,31 +217,19 @@ btnAddList.addEventListener('click', () => {
     renderAll();
 });
 
-inputList.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        btnAddList.click();
-    }
-});
-
 inputList.addEventListener('input', () => {
     inputList.placeholder = 'List title';
     inputList.classList.remove('input-error');
 });
 
 btnCreateTask.addEventListener('click', () => {
-    const taskName = titleTaskInput.value.trim();
+    let taskName = inputTask.value.trim();
     const taskDesc = detailTaskInput.value.trim();
 
-    if (taskName === '') {
-        titleTaskInput.placeholder = 'Task title is required';
-        titleTaskInput.classList.add('input-error');
-        return;
-    }
-
     if (!state.activeListId) {
-        titleTaskInput.placeholder = 'Please select a list first!';
-        titleTaskInput.classList.add('input-error');
-        titleTaskInput.value = '';
+        inputTask.placeholder = 'Please select a list';
+        inputTask.classList.add('input-error');
+        inputTask.value = '';
         return;
     }
 
@@ -237,11 +239,21 @@ btnCreateTask.addEventListener('click', () => {
         if (state.activeTaskId) {
             const activeTask = activeList.tasks.find(t => t.id === state.activeTaskId);
             if (activeTask) {
+                if (taskName === '') {
+                    taskName = activeTask.title;
+                }
                 activeTask.title = taskName;
-                activeTask.description = taskDesc;
+                activeTask.description = taskDesc; 
             }
-            state.activeTaskId = null;
-        } else {
+            state.activeTaskId = null; 
+        } 
+        else {
+            if (taskName === '') {
+                inputTask.placeholder = 'Task title is required';
+                inputTask.classList.add('input-error');
+                return;
+            }
+            
             const newTask = {
                 id: generateId(),
                 title: taskName,
@@ -251,8 +263,8 @@ btnCreateTask.addEventListener('click', () => {
             activeList.tasks.push(newTask);
         }
         
-        titleTaskInput.placeholder = 'Task title';
-        titleTaskInput.classList.remove('input-error');
+        inputTask.placeholder = 'Task title';
+        inputTask.classList.remove('input-error');
         
         saveData();
         renderAll(); 
@@ -273,43 +285,51 @@ btnRemoveTask.addEventListener('click', () => {
     }
 });
 
-titleTaskInput.addEventListener('input', function() {
+inputTask.addEventListener('input', function() {
     this.style.height = '40px';
     this.style.height = this.scrollHeight + 'px';
     this.placeholder = 'Task title';
     this.classList.remove('input-error');
+});
 
-    if (state.activeTaskId && state.activeListId) {
+currentListTitle.addEventListener('blur', () => {
+    if (state.activeListId) {
         const activeList = state.lists.find(l => l.id === state.activeListId);
         if (activeList) {
-            const activeTask = activeList.tasks.find(t => t.id === state.activeTaskId);
-            if (activeTask) {
-                activeTask.title = this.value;
-                saveData();
-                renderTasks();
+            const newTitle = currentListTitle.textContent.trim();
+            
+            if (newTitle !== '') {
+                activeList.title = newTitle;
+            } else {
+                currentListTitle.textContent = activeList.title;
             }
+            
+            saveData();
+            renderLists(); 
         }
     }
 });
 
-detailTaskInput.addEventListener('input', function() {
-    if (state.activeTaskId && state.activeListId) {
-        const activeList = state.lists.find(l => l.id === state.activeListId);
-        if (activeList) {
-            const activeTask = activeList.tasks.find(t => t.id === state.activeTaskId);
-            if (activeTask) {
-                activeTask.description = this.value;
-                saveData();
-            }
-        }
-    }
-});
-
-titleTaskInput.addEventListener('keydown', (e) => {
+// Keyboard shortcuts
+inputTask.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         btnCreateTask.click();
     }
 });
 
+inputList.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        btnAddList.click();
+    }
+});
+
+currentListTitle.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        this.blur();       
+    }
+});
+
+// Initial render
 renderAll();
