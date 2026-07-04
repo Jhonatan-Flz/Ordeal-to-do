@@ -41,39 +41,6 @@ textarea,
 	outline: none;
 }
 
-/* 3. LAYOUT & GRID */
-.layout {
-	display: grid;
-	grid-template-columns: 280px 1fr 420px;
-	gap: 18px;
-	margin: 40px auto;
-	height: 100%;
-}
-
-.layout_1 {
-	display: flex;
-	justify-content: space-between;
-	gap: 8px;
-}
-
-.layout_2 {
-	display: flex;
-	justify-content: flex-start;
-	gap: 8px;
-}
-
-.layout_3 {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	flex-grow: 1;
-}
-
-#calendar {
-	grid-column: span 2;
-	display: none;
-}
-
 /* 3. COMPONENTS */
 
 /* Card & Board */
