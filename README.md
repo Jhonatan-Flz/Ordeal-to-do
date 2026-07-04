@@ -21,30 +21,32 @@ At the moment, the project focuses on the core task management loop. You can cre
 The codebase and UI already suggest several planned features that are not implemented yet:
 
 ### Core task & list polish
-1. Icons for task and interface options (buttons, actions, indicators).
-2. Task details fully editable.
-3. Drag-and-drop reordering of tasks and lists.
+1. SVG icons for task and interface options (buttons, indicators).
+2. Drag-and-drop reordering of tasks and lists.
+3. Tasks automatically move to a separate area when checked and return to the main list when unchecked.
 4. Task ordering by alphabetic order or due date.
 5. Task filtering by user added groups/categories.
 
 ### Dates & time
 6. Reminders with date and time.
 7. Repeating tasks that can reset automatically after completion.
-8. A functional calendar system.
+8. Task details fully editable with reminders and repeating options.
 
 ### Cross-cutting polish
 9. Full responsive design and basic customization.
 10. A complete keyboard shortcuts list.
+11. Custom context menu (right-click menu)
 
 ### Accounts & social foundation
-11. Account administration.
-12. Friend management and social challenge mechanics.
+12. Account administration.
+13. Friend management and social challenge mechanics.
 
 ### Social features
-13. Task assignment to friends or contacts with adjustable points.
-14. Social points earning system managed by AI, for now is just a display.
-15. Social points economy with rewards, penalties, and future shop-like advantages.
-16. Chat panel for choosing between friends or an AI assistant.
+14. Task assignment to friends or contacts with adjustable points.
+15. Social points earning system managed by AI, for now is just a display.
+16. Social points economy with rewards, penalties, and future shop-like advantages.
+17. Chat panel for choosing between friends or an AI assistant.
+18. Functional calendar with categories and shared events.
 
 ## Project structure
 
