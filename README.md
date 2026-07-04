@@ -13,6 +13,8 @@ At the moment, the project focuses on the core task management loop. You can cre
 - Remove the selected task.
 - Delete entire lists.
 - Switch between the main to-do view and a calendar view placeholder.
+- Date assignment for tasks.
+- Group assigment for tasks.
 
 ## Planned features
 
@@ -20,7 +22,6 @@ The codebase and UI already suggest several planned features that are not implem
 
 - Task filtering by user added groups/categories.
 - Task ordering by alphabetic order or due date.
-- Date assignment for tasks, including a calendar display.
 - Reminders with date and time.
 - Repeating tasks that can reset automatically after completion.
 - Task details fully editable.
@@ -32,7 +33,7 @@ The codebase and UI already suggest several planned features that are not implem
 - Social points economy with rewards, penalties, and future shop-like advantages.
 - A functional calendar system.
 - A complete keyboard shortcuts list.
-- Full responsive design.
+- Full responsive design and basic customization.
 
 ## Project structure
 

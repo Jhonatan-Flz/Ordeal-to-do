@@ -24,13 +24,36 @@ const inputGroup = document.getElementById('Input-group');
 const btnAddGroup = document.getElementById('Add-group');
 const boardGroup = document.getElementById('Board-group');
 
+// Date Variables
+const btnDate = document.getElementById('date');
+const modalDate = document.getElementById('Modal-date');
+const btnCloseDate = document.getElementById('Close-date');
+const inputDate = document.getElementById('Input-date');
+const btnSaveDate = document.getElementById('Save-date');
+const btnClearDate = document.getElementById('Clear-date');
+
+// Temporary variables to hold group and date for new tasks
+let tempGroupId = null;
+let tempDueDate = null;
+
 // Local Storage
-let state = JSON.parse (localStorage.getItem('ordealData')) || {
-    lists: [],
-    groups: [],
-    activeListId: null,
-    activeTaskId: null
-};
+let state;
+try {
+    state = JSON.parse(localStorage.getItem('ordealData')) || {
+        lists: [],
+        groups: [],
+        activeListId: null,
+        activeTaskId: null
+    };
+} catch (e) {
+    console.error('Saved data was corrupted, starting fresh.', e);
+    state = {
+        lists: [],
+        groups: [],
+        activeListId: null,
+        activeTaskId: null
+    };
+}
 
 function saveData() {
     localStorage.setItem('ordealData', JSON.stringify(state));
@@ -50,11 +73,11 @@ function renderAll() {
 
 function renderLists() {
     boardList.innerHTML = '';
-    
+
     state.lists.forEach(list => {
         const listEl = document.createElement('div');
         listEl.className = 'field task click layout_1';
-        
+
         if (list.id === state.activeListId) {
             listEl.classList.add('selected');
             currentListTitle.textContent = list.title;
@@ -78,19 +101,18 @@ function renderLists() {
             renderAll();
         });
 
-			listEl.addEventListener('click', () => {
-		if (state.activeListId === list.id) {
-			state.activeListId = null;
-		} else {
-			state.activeListId = list.id;
-		}
-		
-		state.activeTaskId = null;
-		state.pendingGroupId = null;
-		
-		saveData();
-		renderAll();
-});
+        listEl.addEventListener('click', () => {
+            if (state.activeListId === list.id) {
+                state.activeListId = null;
+            } else {
+                state.activeListId = list.id;
+            }
+
+            state.activeTaskId = null;
+
+            saveData();
+            renderAll();
+        });
 
         listEl.appendChild(titleSpan);
         listEl.appendChild(deleteBtn);
@@ -104,7 +126,7 @@ function renderLists() {
 
 function renderTasks() {
     boardTask.innerHTML = '';
-    
+
     if (!state.activeListId) return;
 
     const activeList = state.lists.find(l => l.id === state.activeListId);
@@ -113,7 +135,7 @@ function renderTasks() {
     activeList.tasks.forEach(task => {
         const taskEl = document.createElement('div');
         taskEl.className = 'task field click';
-        
+
         if (task.isDone) taskEl.classList.add('done');
         if (task.id === state.activeTaskId) taskEl.classList.add('selected');
 
@@ -131,12 +153,11 @@ function renderTasks() {
         });
 
         taskEl.addEventListener('click', () => {
-		state.activeTaskId = (state.activeTaskId === task.id) ? null : task.id;
-		state.pendingGroupId = null; 
-		
-		saveData();
-		renderAll();
-		});
+            state.activeTaskId = (state.activeTaskId === task.id) ? null : task.id;
+
+            saveData();
+            renderAll();
+        });
 
         taskEl.appendChild(circleEl);
         taskEl.appendChild(nameSpan);
@@ -152,20 +173,114 @@ function renderDetails() {
             if (activeTask) {
                 inputTask.value = activeTask.title;
                 detailTaskInput.value = activeTask.description || '';
-                
+
                 inputTask.style.height = '40px';
                 inputTask.style.height = inputTask.scrollHeight + 'px';
-                
+
                 btnCreateTask.textContent = 'Save';
+
+                if (activeTask.groupId) {
+                    const assignedGroup = state.groups.find(g => g.id === activeTask.groupId);
+                    if (assignedGroup) {
+                        btnGroup.textContent = assignedGroup.name;
+                        btnGroup.classList.add('selected');
+                    } else {
+                        btnGroup.textContent = 'Group';
+                        btnGroup.classList.remove('selected');
+                    }
+                } else {
+                    btnGroup.textContent = 'Group';
+                    btnGroup.classList.remove('selected');
+                }
+
+                if (activeTask.dueDate) {
+                    btnDate.textContent = activeTask.dueDate;
+                    btnDate.classList.add('selected');
+                } else {
+                    btnDate.textContent = 'Date';
+                    btnDate.classList.remove('selected');
+                }
+
                 return;
             }
         }
     }
+
+    tempGroupId = null;
+    tempDueDate = null;
     
     inputTask.value = '';
     detailTaskInput.value = '';
     inputTask.style.height = '40px';
     btnCreateTask.textContent = 'Create';
+    
+    btnGroup.textContent = 'Group';
+    btnGroup.classList.remove('selected');
+    
+    btnDate.textContent = 'Date';
+    btnDate.classList.remove('selected');
+}
+
+function renderGroups() {
+    boardGroup.innerHTML = '';
+
+    state.groups.forEach(group => {
+        const groupEl = document.createElement('div');
+        groupEl.className = 'field task click layout_1';
+
+        const titleSpan = document.createElement('span');
+        titleSpan.textContent = group.name;
+
+        const deleteBtn = document.createElement('div');
+        deleteBtn.className = 'delete-list-btn';
+
+        deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            state.groups = state.groups.filter(g => g.id !== group.id);
+            state.lists.forEach(list => {
+                list.tasks.forEach(task => {
+                    if (task.groupId === group.id) {
+                        task.groupId = null;
+                    }
+                });
+            });
+
+            if (tempGroupId === group.id) {
+                tempGroupId = null;
+                btnGroup.textContent = 'Group';
+                btnGroup.classList.remove('selected');
+            }
+
+            saveData();
+            renderGroups();
+            renderAll();
+        });
+
+        groupEl.addEventListener('click', () => {
+            if (state.activeListId && state.activeTaskId) {
+                const activeList = state.lists.find(l => l.id === state.activeListId);
+                if (activeList) {
+                    const activeTask = activeList.tasks.find(t => t.id === state.activeTaskId);
+                    if (activeTask) {
+                        activeTask.groupId = group.id;
+                        saveData();
+                        renderDetails();
+                        modalGroup.style.display = 'none';
+                    }
+                }
+            } else {
+                tempGroupId = group.id;
+                btnGroup.textContent = group.name;
+                btnGroup.classList.add('selected');
+                modalGroup.style.display = 'none';
+            }
+        });
+
+        groupEl.appendChild(titleSpan);
+        groupEl.appendChild(deleteBtn);
+        boardGroup.appendChild(groupEl);
+    });
 }
 
 // Button Event Listeners
@@ -221,7 +336,7 @@ btnAddList.addEventListener('click', () => {
     state.activeListId = newList.id;
     state.activeTaskId = null;
     inputList.value = '';
-    
+
     saveData();
     renderAll();
 });
@@ -243,7 +358,7 @@ btnCreateTask.addEventListener('click', () => {
     }
 
     const activeList = state.lists.find(l => l.id === state.activeListId);
-    
+
     if (activeList) {
         if (state.activeTaskId) {
             const activeTask = activeList.tasks.find(t => t.id === state.activeTaskId);
@@ -252,31 +367,36 @@ btnCreateTask.addEventListener('click', () => {
                     taskName = activeTask.title;
                 }
                 activeTask.title = taskName;
-                activeTask.description = taskDesc; 
+                activeTask.description = taskDesc;
             }
-            state.activeTaskId = null; 
-        } 
+            state.activeTaskId = null;
+        }
         else {
             if (taskName === '') {
                 inputTask.placeholder = 'Task title is required';
                 inputTask.classList.add('input-error');
                 return;
             }
-            
+
             const newTask = {
                 id: generateId(),
                 title: taskName,
                 description: taskDesc,
-                isDone: false
+                isDone: false,
+                groupId: tempGroupId,
+                dueDate: tempDueDate
             };
             activeList.tasks.push(newTask);
+            
+            tempGroupId = null;
+            tempDueDate = null;
         }
-        
+
         inputTask.placeholder = 'Task title';
         inputTask.classList.remove('input-error');
-        
+
         saveData();
-        renderAll(); 
+        renderAll();
     }
 });
 
@@ -289,8 +409,33 @@ btnRemoveTask.addEventListener('click', () => {
             saveData();
             renderAll(); 
         }
-    } else {
-        alert('Please select a task to remove.');
+    } 
+    else {
+        tempGroupId = null;
+        tempDueDate = null;
+
+        inputTask.value = '';
+        detailTaskInput.value = '';
+        
+        inputTask.style.height = '40px';
+        inputTask.placeholder = 'Task title';
+        inputTask.classList.remove('input-error');
+        
+        if (btnGroup) {
+            btnGroup.textContent = 'Group';
+            btnGroup.classList.remove('selected');
+        }
+        
+        if (btnDate) {
+            btnDate.textContent = 'Date';
+            btnDate.classList.remove('selected');
+        }
+        
+        const btnReminder = document.getElementById('Btn-reminder');
+        if (btnReminder) { btnReminder.textContent = 'R1'; }
+        
+        const btnRepeat = document.getElementById('Btn-repeat');
+        if (btnRepeat) { btnRepeat.textContent = 'R2'; }
     }
 });
 
@@ -306,46 +451,20 @@ currentListTitle.addEventListener('blur', () => {
         const activeList = state.lists.find(l => l.id === state.activeListId);
         if (activeList) {
             const newTitle = currentListTitle.textContent.trim();
-            
+
             if (newTitle !== '') {
                 activeList.title = newTitle;
             } else {
                 currentListTitle.textContent = activeList.title;
             }
-            
+
             saveData();
-            renderLists(); 
+            renderLists();
         }
     }
 });
 
 // Group Modal Functions
-function renderGroups() {
-    boardGroup.innerHTML = '';
-    
-    state.groups.forEach(group => {
-        const groupEl = document.createElement('div');
-        groupEl.className = 'field task click layout_1';
-        
-        const titleSpan = document.createElement('span');
-        titleSpan.textContent = group.name;
-        
-        const deleteBtn = document.createElement('div');
-        deleteBtn.className = 'delete-list-btn';
-        
-        deleteBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            state.groups = state.groups.filter(g => g.id !== group.id);
-            saveData();
-            renderGroups();
-        });
-        
-        groupEl.appendChild(titleSpan);
-        groupEl.appendChild(deleteBtn);
-        boardGroup.appendChild(groupEl);
-    });
-}
-
 btnGroup.addEventListener('click', () => {
     modalGroup.style.display = 'flex';
     renderGroups();
@@ -354,20 +473,30 @@ btnGroup.addEventListener('click', () => {
 btnCloseGroup.addEventListener('click', () => {
     modalGroup.style.display = 'none';
     inputGroup.value = '';
+    inputGroup.placeholder = 'Group name';
+    inputGroup.classList.remove('input-error');
 });
 
 btnAddGroup.addEventListener('click', () => {
     const groupName = inputGroup.value.trim();
-    if (groupName !== '') {
-        const newGroup = {
-            id: generateId(),
-            name: groupName
-        };
-        state.groups.push(newGroup);
-        inputGroup.value = '';
-        saveData();
-        renderGroups();
+
+    if (groupName === '') {
+        inputGroup.placeholder = 'Group name is required';
+        inputGroup.classList.add('input-error');
+        return;
     }
+
+    inputGroup.placeholder = 'Group name';
+    inputGroup.classList.remove('input-error');
+
+    const newGroup = {
+        id: generateId(),
+        name: groupName
+    };
+    state.groups.push(newGroup);
+    inputGroup.value = '';
+    saveData();
+    renderGroups();
 });
 
 inputGroup.addEventListener('keydown', (e) => {
@@ -375,6 +504,75 @@ inputGroup.addEventListener('keydown', (e) => {
         e.preventDefault();
         btnAddGroup.click();
     }
+});
+
+inputGroup.addEventListener('input', () => {
+    inputGroup.placeholder = 'Group name';
+    inputGroup.classList.remove('input-error');
+});
+
+btnDate.addEventListener('click', () => {
+    if (!state.activeListId) {
+        return; 
+    }
+
+    if (state.activeTaskId) {
+        const activeList = state.lists.find(l => l.id === state.activeListId);
+        if (!activeList) return;
+        const activeTask = activeList.tasks.find(t => t.id === state.activeTaskId);
+        if (!activeTask) return;
+        
+        inputDate.value = activeTask.dueDate || '';
+    } else {
+        inputDate.value = tempDueDate || '';
+    }
+    
+    modalDate.style.display = 'flex';
+});
+
+btnSaveDate.addEventListener('click', () => {
+    if (state.activeListId && state.activeTaskId) {
+        const activeList = state.lists.find(l => l.id === state.activeListId);
+        if (activeList) {
+            const activeTask = activeList.tasks.find(t => t.id === state.activeTaskId);
+            if (activeTask) {
+                activeTask.dueDate = inputDate.value;
+                saveData();
+                renderDetails();
+                modalDate.style.display = 'none';
+            }
+        }
+    } else {
+        tempDueDate = inputDate.value;
+        btnDate.textContent = tempDueDate; 
+        btnDate.classList.add('selected');
+        modalDate.style.display = 'none';
+    }
+});
+
+btnClearDate.addEventListener('click', () => {
+    if (state.activeListId && state.activeTaskId) {
+        const activeList = state.lists.find(l => l.id === state.activeListId);
+        if (activeList) {
+            const activeTask = activeList.tasks.find(t => t.id === state.activeTaskId);
+            if (activeTask) {
+                activeTask.dueDate = null;
+                saveData();
+                renderDetails();
+                modalDate.style.display = 'none';
+            }
+        }
+    } else {
+        tempDueDate = null;
+        inputDate.value = '';
+        btnDate.textContent = 'Date'; 
+        btnDate.classList.remove('selected');
+        modalDate.style.display = 'none';
+    }
+});
+
+btnCloseDate.addEventListener('click', () => {
+    modalDate.style.display = 'none';
 });
 
 // Keyboard shortcuts
@@ -385,7 +583,7 @@ inputTask.addEventListener('keydown', (e) => {
     }
 });
 
-inputList.addEventListener('keypress', (e) => {
+inputList.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         btnAddList.click();
     }
@@ -394,7 +592,7 @@ inputList.addEventListener('keypress', (e) => {
 currentListTitle.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
         e.preventDefault();
-        this.blur();       
+        this.blur();
     }
 });
 

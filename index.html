@@ -9,8 +9,10 @@
 </head>
 
 <body>
+
 	<div class="layout max-width">
 
+		<!-- left card -->
 		<aside class="sidebar card">
 			<header class="layout_1">
 				<h1 class="title">Ordeal To Do</h1>
@@ -22,18 +24,19 @@
 
 			<hr/>
 			<div class="layout_2">
-				<input type="text" placeholder="List title" class="selectable field task click" id="Input-list" />
-				<button type="button" class="field click add" id="Add-list">+</button>
+				<input type="text" placeholder="List title" class="field task click" id="Input-list" />
+				<button type="button" class="field click icon-button" id="Add-list">+</button>
 			</div>
 		</aside>
 
+		<!-- center card -->
 		<main class="main card">
 			<div class="layout_1">
 				<!-- List title is supposed to be editable and then change the active list title you are working on -->
 				<h2 class="title" id="Current-list-title" contenteditable="true"> </h2>
 				<div class="layout_1">
-					<button type="button" class="field click" id="Order">Order</button>
-					<button type="button" class="field click" id="Filter">Filter</button>
+					<button type="button" class="field click" id="Order" disabled>Order</button>
+					<button type="button" class="field click" id="Filter" disabled>Filter</button>
 				</div>
 			</div>
 			<hr/>
@@ -41,12 +44,13 @@
 			<div class="board" id="Board-task"></div>
 			<hr/>
 			
-			<div class="field task layout_1">
-				<span>Social points:</span> 
+			<button type="button" class="field click task layout_1" id="Btn-social-points" disabled>
+				<span>Social points</span> 
 				<span id="progress-percent">0</span>
-			</div>
+			</button>
 		</main>
 
+		<!-- right card -->
 		<aside class="details card">
 			<div class="layout_1">
 				<div class="layout_2">
@@ -67,37 +71,35 @@
 			<hr />
 			
 			<div class="layout_2">
-				<div class="field click task layout_1 button" style="width: 100%;"> Assign task to </div>
-				
-				<button type="button" class="field click add" id="Btn-task-date">R1</button>
-				<button type="button" class="field click add" id="Btn-task-repeat">R2</button>
+				<button type="button" class="field click task" style="width: 100%;" disabled> Assign task to </button>
+				<button type="button" class="field click icon-button" id="Btn-task-date" disabled>R1</button>
+				<button type="button" class="field click icon-button" id="Btn-task-repeat" disabled>R2</button>
 			</div>
 		</aside>
 
-		<!-- Calendar section -->
-		<section class="card" id="calendar"></section>
-
-		<section class="stats card">
-			<div class="field click task layout_1 button">
+		<section class="card">
+			<button type="button" class="field click task layout_1" disabled>
 				<span>Chat</span>
-			</div>
+			</button>
 		</section>
 
-		<section class="stats card">
-			<div class="field click task layout_1 button">
+		<section class="card">
+			<button type="button" class="field click task layout_1" id="Btn-account-stats" disabled>
 				<span>Account stats</span> 
-			</div>
+			</button>
 		</section>
 
-		<section class="stats card">
+		<section class="card">
 			<div class="layout_2">
-				<div class="selectable field task click" id="Btn-config-display" style="width: 100%;"> Configuration </div>
-				
-				<button type="button" class="field click add" id="Btn-add-friend">A</button>
-				<button type="button" class="field click add" id="Btn-account-settings">F</button>
+				<button type="button" class="field click task" id="Btn-config" style="width: 100%;" disabled> Configuration </button>
+				<button type="button" class="field click icon-button" id="Btn-account" disabled>A</button>
+				<button type="button" class="field click icon-button" id="Btn-friends" disabled>F</button>
 			</div>
 		</section>
 		
+		<!-- Calendar section -->
+		<section class="card" id="calendar"></section>
+
 	</div>
 
 	<!-- Modal window for adding groups to the tasks -->
@@ -111,8 +113,26 @@
 			<div class="board" id="Board-group" style="height: 250px;"></div>
 			<hr/>
 			<div class="layout_2">
-				<input type="text" placeholder="Group name" class="selectable field task click" id="Input-group"/>
-				<button type="button" class="field click add" id="Add-group">+</button>
+				<input type="text" placeholder="Group name" class=" field task click" id="Input-group"/>
+				<button type="button" class="field click icon-button" id="Add-group">+</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal window for assigning a date to a task -->
+	<div id="Modal-date" class="modal">
+		<div class="card modal-content">
+			<div class="layout_1">
+				<h2 class="title">Set Date</h2>
+				<button type="button" class="field click icon-button" id="Close-date">X</button>
+			</div>
+			<hr/>
+			<div class="layout_3">
+				<input type="date" class="field task click dark" id="Input-date" style="color-scheme: dark;" />
+				<div class="layout_2" style="margin-top: 10px;">
+					<button type="button" class="field click" id="Save-date" style="flex-grow: 1;">Save Date</button>
+					<button type="button" class="field click" id="Clear-date" style="flex-grow: 1;">Clear Date</button>
+				</div>
 			</div>
 		</div>
 	</div>

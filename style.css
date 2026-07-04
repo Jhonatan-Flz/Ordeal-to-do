@@ -28,7 +28,7 @@ hr {
 	border-top: 1px solid var(--muted_2);
 }
 
-input {
+input, button.task {
 	box-sizing: border-box;
 	width: 100%;
 	height: 33.6px;
@@ -119,7 +119,7 @@ textarea,
 	transition: background 0.1s, color 0.1s, border-color 0.1s;
 }
 
-.task.selected {
+.task.selected, .selected {
 	color: var(--hex_3);
 	background-color: var(--hex_2);
 	border: 1px solid var(--hex_2);
@@ -257,15 +257,11 @@ input.click:hover {
 	background-color: var(--muted_5);
 }
 
-.selectable {
-	user-select: text;
-}
-
 .max-width {
 	max-width: 1400px;
 }
 
-.add {
+.icon-button {
 	width: 40px;
 }
 
@@ -280,7 +276,7 @@ input.click:hover {
 }
 
 ::selection {
-	background-color: var(--hex_2);
+	background-color: color-mix(in srgb, var(--hex_2), black 15%);
 }
 
 /* 6. Calendar related styles */
