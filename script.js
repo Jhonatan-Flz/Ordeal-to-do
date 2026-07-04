@@ -431,10 +431,10 @@ btnRemoveTask.addEventListener('click', () => {
             btnDate.classList.remove('selected');
         }
         
-        const btnReminder = document.getElementById('Btn-reminder');
+        const btnReminder = document.getElementById('reminder');
         if (btnReminder) { btnReminder.textContent = 'R1'; }
         
-        const btnRepeat = document.getElementById('Btn-repeat');
+        const btnRepeat = document.getElementById('repeat');
         if (btnRepeat) { btnRepeat.textContent = 'R2'; }
     }
 });
