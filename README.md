@@ -65,7 +65,7 @@ Ordeal-ToDo/
 │   ├── modalDate.js
 │   ├── shortcuts.js
 │   └── app.js
-└── Assets/
+└── assets/
     └── icons/
         └── icon.png
 ```

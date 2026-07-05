@@ -36,8 +36,8 @@ input, button.task {
 
 input:focus,
 button:focus,
-textarea,
-#Current-list-title:focus {
+h2:focus, 
+textarea {
 	outline: none;
 }
 
@@ -161,7 +161,6 @@ textarea,
 	width: 100%; 
 	white-space: nowrap;
 	overflow: hidden;
-	text-shadow: none;
 	text-overflow: ellipsis;
 	transition: all 0.1s;
 }
@@ -175,7 +174,6 @@ textarea,
 	max-width: 200px;
 	white-space: nowrap;
 	overflow: hidden;
-	text-shadow: none;
 	text-overflow: ellipsis;
 }
 
