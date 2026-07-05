@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Ordeal</title>
 	<link rel="stylesheet" href="style.css" />
-	<link rel="icon" href="Assets/icons/icon.png" type="image/png"/>
+	<link rel="icon" href="assets/icons/icon.png" type="image/png"/>
 </head>
 
 <body>
@@ -20,12 +20,12 @@
 			</header>
 			<hr/>
 
-			<div class="board" id="Board-list"></div>
+			<div class="board" id="board-list"></div>
 
 			<hr/>
 			<div class="layout_2">
-				<input type="text" placeholder="List title" class="field task click" id="Input-list" />
-				<button type="button" class="field click icon-button" id="Add-list">+</button>
+				<input type="text" placeholder="List title" class="field task click" id="input-list" />
+				<button type="button" class="field click icon-button" id="add-list">+</button>
 			</div>
 		</aside>
 
@@ -33,18 +33,18 @@
 		<main class="main card">
 			<div class="layout_1">
 				<!-- List title is supposed to be editable and then change the active list title you are working on -->
-				<h2 class="title" id="Current-list-title" contenteditable="true"> </h2>
+				<h2 class="title" id="current-list-title" contenteditable="true"> </h2>
 				<div class="layout_1">
-					<button type="button" class="field click" id="Order" disabled>Order</button>
-					<button type="button" class="field click" id="Filter" disabled>Filter</button>
+					<button type="button" class="field click" id="order" disabled>Order</button>
+					<button type="button" class="field click" id="filter" disabled>Filter</button>
 				</div>
 			</div>
 			<hr/>
 
-			<div class="board" id="Board-task"></div>
+			<div class="board" id="board-task"></div>
 			<hr/>
 			
-			<button type="button" class="field click task layout_1" id="Btn-social-points" disabled>
+			<button type="button" class="field click task layout_1" id="btn-social-points" disabled>
 				<span>Social points</span> 
 				<span id="progress-percent">0</span>
 			</button>
@@ -65,8 +65,8 @@
 			<hr />
 			
 			<div class="layout_3">
-				<textarea class="field task dark" id="Title-task" maxlength="100" style="font-weight: bold;" placeholder="Task title"></textarea>
-				<textarea id="Detail-task" maxlength="600" class="field task dark" style="font-weight: bold;" placeholder="Task description"></textarea>
+				<textarea class="field task dark" id="title-task" maxlength="100" style="font-weight: bold;" placeholder="Task title"></textarea>
+				<textarea id="detail-task" maxlength="600" class="field task dark" style="font-weight: bold;" placeholder="Task description"></textarea>
 			</div>
 			<hr />
 			
@@ -81,7 +81,7 @@
 		<section class="card" id="calendar"></section>
 
 		<section class="card">
-			<button type="button" class="field click task layout_1" id="Btn-chat" disabled>
+			<button type="button" class="field click task layout_1" id="btn-chat" disabled>
 				<span>Chat</span>
 			</button>
 		</section>
@@ -94,48 +94,58 @@
 
 		<section class="card">
 			<div class="layout_2">
-				<button type="button" class="field click task" id="Btn-config" style="width: 100%;" disabled> Configuration </button>
-				<button type="button" class="field click icon-button" id="Btn-account" disabled>A</button>
-				<button type="button" class="field click icon-button" id="Btn-friends" disabled>F</button>
+				<button type="button" class="field click task" id="btn-config" style="width: 100%;" disabled> Configuration </button>
+				<button type="button" class="field click icon-button" id="btn-account" disabled>A</button>
+				<button type="button" class="field click icon-button" id="btn-friends" disabled>F</button>
 			</div>
 		</section>
 
 	</div>
 
 	<!-- Modal window for adding groups to the tasks -->
-	<div id="Modal-group" class="modal">
+	<div id="modal-group" class="modal">
 		<div class="card modal-content">
 			<div class="layout_1">
 				<h2 class="title">Groups</h2>
-				<button type="button" class="field click" id="Close-group">Close</button>
+				<button type="button" class="field click" id="close-group">Close</button>
 			</div>
 			<hr/>
-			<div class="board" id="Board-group" style="height: 240px;"></div>
+			<div class="board" id="board-group" style="height: 240px;"></div>
 			<hr/>
 			<div class="layout_2">
-				<input type="text" placeholder="Group name" class=" field task click" id="Input-group"/>
-				<button type="button" class="field click icon-button" id="Add-group">+</button>
+				<input type="text" placeholder="Group name" class=" field task click" id="input-group"/>
+				<button type="button" class="field click icon-button" id="add-group">+</button>
 			</div>
 		</div>
 	</div>
 
 	<!-- Modal window for assigning a date to a task -->
-	<div id="Modal-date" class="modal">
+	<div id="modal-date" class="modal">
 		<div class="card modal-content">
 			<div class="layout_1">
 				<h2 class="title">Set Date</h2>
-				<button type="button" class="field click" id="Close-date">Close</button>
+				<button type="button" class="field click" id="close-date">Close</button>
 			</div>
 			<hr/>
 			<div class="layout_2">
-				<input type="date" class="field task click dark" id="Input-date" style="color-scheme: dark;" />
-				<button type="button" class="field click icon-button" id="Save-date">S</button>
-				<button type="button" class="field click icon-button" id="Clear-date">C</button>
+				<input type="date" class="field task click dark" id="input-date" style="color-scheme: dark;" />
+				<button type="button" class="field click icon-button" id="save-date">S</button>
+				<button type="button" class="field click icon-button" id="clear-date">C</button>
 			</div>
 		</div>
 	</div>
 
-	<script src="script.js"></script>
+	<!-- Javascript section, this will use the type=module later when necessary -->
+	<script src="js/elements.js"></script>
+	<script src="js/state.js"></script>
+	<script src="js/utility.js"></script>
+	<script src="js/render.js"></script>
+	<script src="js/listeners.js"></script>
+	<script src="js/lists.js"></script>
+	<script src="js/modal-group.js"></script>
+	<script src="js/modal-date.js"></script>
+	<script src="js/shortcuts.js"></script>
+	<script src="js/app.js"></script>
 
 </body>
 </html>

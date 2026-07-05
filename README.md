@@ -54,7 +54,17 @@ The codebase and UI already suggest several planned features that are not implem
 Ordeal-ToDo/
 ├── index.html
 ├── style.css
-├── script.js
+├── js/
+│   ├── elements.js
+│   ├── state.js
+│   ├── utility.js
+│   ├── render.js
+│   ├── listeners.js
+│   ├── lists.js
+│   ├── modalGroup.js
+│   ├── modalDate.js
+│   ├── shortcuts.js
+│   └── app.js
 └── Assets/
     └── icons/
         └── icon.png
@@ -84,7 +94,7 @@ This is a front-end project with no build step.
 
 1. Clone or download the repository.
 2. Open `index.html` in your browser, or serve the folder with a local development server.
-3. Make sure `style.css` and `script.js` remain in the same directory as `index.html`.
+3. Make sure `style.css` and `js/` remain in the same directory as `index.html`.
 
 ## Notes
 
@@ -101,11 +111,3 @@ Contributions are welcome, especially for:
 - task editing,
 - social points logic,
 - UI icons and visual polish.
-
-## License
-
-Add your preferred license here before publishing the repository.
-
----
-
-If you want, I can also turn this into a more polished GitHub README with badges, screenshots, and a cleaner “Features / Roadmap / Installation” layout.

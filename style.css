@@ -146,17 +146,17 @@ textarea,
 	box-sizing: border-box;
 }
 
-#Title-task {
+#title-task {
 	height: 40px;
 	font-size: 18px;
 }
 
-#Detail-task {
+#detail-task {
 	flex-grow: 1;
 	height: auto;
 }
 
-#Current-list-title {
+#current-list-title {
 	max-width: 480px;
 	width: 100%; 
 	white-space: nowrap;
@@ -164,6 +164,19 @@ textarea,
 	text-shadow: none;
 	text-overflow: ellipsis;
 	transition: all 0.1s;
+}
+
+#current-list-title:hover {
+	cursor: text;
+	color: var(--hex_3);
+}
+
+#group {
+	max-width: 200px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-shadow: none;
+	text-overflow: ellipsis;
 }
 
 /* Modals */
@@ -232,11 +245,6 @@ input.click:hover {
 	width: 40px;
 }
 
-#Current-list-title:hover {
-	cursor: text;
-	color: var(--hex_3);
-}
-
 /* 5. PSEUDO-ELEMENTS & PSEUDO-CLASSES */
 ::-webkit-scrollbar {
 	display: none;
@@ -255,7 +263,7 @@ input.click:hover {
 /* 7. LAYOUT & GRID */
 .layout {
 	display: grid;
-	grid-template-columns: 300px 1fr 420px;
+	grid-template-columns: 300px 1fr 450px;
 	gap: 18px;
 	margin: 40px auto;
 	height: 100%;
