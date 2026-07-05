@@ -154,6 +154,7 @@ textarea {
 #detail-task {
 	flex-grow: 1;
 	height: auto;
+	max-height: 360px;
 }
 
 #current-list-title {
