@@ -67,7 +67,6 @@ Ordeal-ToDo/
 │   └── app.js
 └── assets/
     └── icons/
-        └── icon.png
 ```
 
 ## Tech stack
