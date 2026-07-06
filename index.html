@@ -2,12 +2,27 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Ordeal</title>
 	<link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+
+	<!-- Svg icons -->
+	<svg style="display: none;">
+	<defs>
+		<g id="icon-add"> <path d="M12 4V20M4 12H20" stroke="var(--hex_4)" stroke-width="1" stroke-linecap="square"/> </g>
+		<g id="icon-reminder"> <path d="M12 6V12L16 14M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="var(--hex_4)" stroke-width="1"> </path> </g>
+		<g id="icon-friends"> <path d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14M15 9H15.01M9 9H9.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15.5 9C15.5 9.27614 15.2761 9.5 15 9.5C14.7239 9.5 14.5 9.27614 14.5 9C14.5 8.72386 14.7239 8.5 15 8.5C15.2761 8.5 15.5 8.72386 15.5 9ZM9.5 9C9.5 9.27614 9.27614 9.5 9 9.5C8.72386 9.5 8.5 9.27614 8.5 9C8.5 8.72386 8.72386 8.5 9 8.5C9.27614 8.5 9.5 8.72386 9.5 9Z" stroke="var(--hex_4)" stroke-width="1"></path> </g>
+		<g id="icon-repeat"> <path d="M20.453 12.8932C20.1752 15.5031 18.6964 17.9488 16.2494 19.3616C12.1839 21.7088 6.98539 20.3158 4.63818 16.2503L4.38818 15.8173M3.54613 11.1071C3.82393 8.49723 5.30272 6.05151 7.74971 4.63874C11.8152 2.29153 17.0137 3.68447 19.3609 7.74995L19.6109 8.18297M3.49316 18.0662L4.22521 15.3341L6.95727 16.0662M17.0424 7.93413L19.7744 8.66618L20.5065 5.93413" stroke="var(--hex_4)" stroke-width="1"/> </g>
+		<g id="icon-account"> <path d="M11.9999 15C8.82977 15 6.01065 16.5306 4.21585 18.906C3.82956 19.4172 3.63641 19.6728 3.64273 20.0183C3.64761 20.2852 3.81521 20.6219 4.02522 20.7867C4.29704 21 4.67372 21 5.42708 21H18.5726C19.326 21 19.7027 21 19.9745 20.7867C20.1845 20.6219 20.3521 20.2852 20.357 20.0183C20.3633 19.6728 20.1701 19.4172 19.7839 18.906C17.9891 16.5306 15.1699 15 11.9999 15Z" stroke="var(--hex_4)" stroke-width="1"/> <path d="M11.9999 12C14.4851 12 16.4999 9.98528 16.4999 7.5C16.4999 5.01472 14.4851 3 11.9999 3C9.51457 3 7.49985 5.01472 7.49985 7.5C7.49985 9.98528 9.51457 12 11.9999 12Z" stroke="var(--hex_4)" stroke-width="1"/> </g>
+		<g id="icon-save"> <path d="M7 3V6.4C7 6.96005 7 7.24008 7.10899 7.45399C7.20487 7.64215 7.35785 7.79513 7.54601 7.89101C7.75992 8 8.03995 8 8.6 8H15.4C15.9601 8 16.2401 8 16.454 7.89101C16.6422 7.79513 16.7951 7.64215 16.891 7.45399C17 7.24008 17 6.96005 17 6.4V4M17 21V14.6C17 14.0399 17 13.7599 16.891 13.546C16.7951 13.3578 16.6422 13.2049 16.454 13.109C16.2401 13 15.9601 13 15.4 13H8.6C8.03995 13 7.75992 13 7.54601 13.109C7.35785 13.2049 7.20487 13.3578 7.10899 13.546C7 13.7599 7 14.0399 7 14.6V21M21 9.32548V16.2C21 17.8802 21 18.7202 20.673 19.362C20.3854 19.9265 19.9265 20.3854 19.362 20.673C18.7202 21 17.8802 21 16.2 21H7.8C6.11984 21 5.27976 21 4.63803 20.673C4.07354 20.3854 3.6146 19.9265 3.32698 19.362C3 18.7202 3 17.8802 3 16.2V7.8C3 6.11984 3 5.27976 3.32698 4.63803C3.6146 4.07354 4.07354 3.6146 4.63803 3.32698C5.27976 3 6.11984 3 7.8 3H14.6745C15.1637 3 15.4083 3 15.6385 3.05526C15.8425 3.10425 16.0376 3.18506 16.2166 3.29472C16.4184 3.4184 16.5914 3.59135 16.9373 3.93726L20.0627 7.06274C20.4086 7.40865 20.5816 7.5816 20.7053 7.78343C20.8149 7.96237 20.8957 8.15746 20.9447 8.36154C21 8.59171 21 8.8363 21 9.32548Z" stroke="var(--hex_4)" stroke-width="1"></path> </g>
+		<g id="icon-delete"> <path d="M16 6V5.2C16 4.0799 16 3.51984 15.782 3.09202C15.5903 2.71569 15.2843 2.40973 14.908 2.21799C14.4802 2 13.9201 2 12.8 2H11.2C10.0799 2 9.51984 2 9.09202 2.21799C8.71569 2.40973 8.40973 2.71569 8.21799 3.09202C8 3.51984 8 4.0799 8 5.2V6M10 11.5V16.5M14 11.5V16.5M3 6H21M19 6V17.2C19 18.8802 19 19.7202 18.673 20.362C18.3854 20.9265 17.9265 21.3854 17.362 21.673C16.7202 22 15.8802 22 14.2 22H9.8C8.11984 22 7.27976 22 6.63803 21.673C6.07354 21.3854 5.6146 20.9265 5.32698 20.362C5 19.7202 5 18.8802 5 17.2V6" stroke="var(--hex_4)" stroke-width="1"></path> </g>
+	</defs>
+	</svg>
+
 
 	<div class="layout max-width">
 
@@ -24,7 +39,9 @@
 			<hr/>
 			<div class="layout_2">
 				<input type="text" placeholder="List title" class="field task click" id="input-list" />
-				<button type="button" class="field click icon-button" id="add-list">+</button>
+				<button type="button" class="field click icon-button" id="add-list">
+					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-add"></use> </svg>
+				</button>
 			</div>
 		</aside>
 
@@ -71,8 +88,12 @@
 			
 			<div class="layout_2">
 				<button type="button" class="field click task" style="width: 100%;" disabled>Assign task to</button>
-				<button type="button" class="field click icon-button" id="reminder" disabled>R1</button>
-				<button type="button" class="field click icon-button" id="repeat" disabled>R2</button>
+				<button type="button" class="field click icon-button" id="reminder">
+					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-reminder"></use> </svg>
+				</button>
+				<button type="button" class="field click icon-button" id="repeat" disabled>
+					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-repeat"></use> </svg>
+				</button>
 			</div>
 		</aside>
 
@@ -94,8 +115,12 @@
 		<section class="card">
 			<div class="layout_2">
 				<button type="button" class="field click task" id="btn-config" style="width: 100%;" disabled> Configuration </button>
-				<button type="button" class="field click icon-button" id="btn-account" disabled>A</button>
-				<button type="button" class="field click icon-button" id="btn-friends" disabled>F</button>
+				<button type="button" class="field click icon-button" id="btn-account" disabled>
+					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-account"></use> </svg>
+				</button>
+				<button type="button" class="field click icon-button" id="btn-friends" disabled>
+					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-friends"></use> </svg>
+				</button>
 			</div>
 		</section>
 
@@ -113,7 +138,9 @@
 			<hr/>
 			<div class="layout_2">
 				<input type="text" placeholder="Group name" class=" field task click" id="input-group"/>
-				<button type="button" class="field click icon-button" id="add-group">+</button>
+				<button type="button" class="field click icon-button" id="add-group">
+					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-add"></use> </svg>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -128,8 +155,12 @@
 			<hr/>
 			<div class="layout_2">
 				<input type="date" class="field task click dark" id="input-date" style="color-scheme: dark;" />
-				<button type="button" class="field click icon-button" id="save-date">S</button>
-				<button type="button" class="field click icon-button" id="clear-date">C</button>
+				<button type="button" class="field click icon-button" id="save-date">
+					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-save"></use> </svg>
+				</button>
+				<button type="button" class="field click icon-button" id="clear-date">
+					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-delete"></use> </svg>
+				</button>
 			</div>
 		</div>
 	</div>
