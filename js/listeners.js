@@ -150,12 +150,6 @@ btnRemoveTask.addEventListener (
 			
 			}
 			
-			const btnReminder = document.getElementById ( 'reminder' );
-			if ( btnReminder ) { btnReminder.textContent = 'R1'; }
-			
-			const btnRepeat = document.getElementById ( 'repeat' );
-			if ( btnRepeat ) { btnRepeat.textContent = 'R2'; }
-
 		}
 
 	} 
