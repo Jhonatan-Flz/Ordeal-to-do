@@ -28,7 +28,7 @@ function renderLists (  ) {
 				'click', ( e ) => {
 
 					e.stopPropagation (  );
-					state.lists = state.lists.filter ( l => l.id !== list.id );
+					state.lists = state.lists.filter ( otherList => otherList.id !== list.id );
 					if ( state.activeListId === list.id ) {
 
 						state.activeListId = null;
@@ -78,7 +78,7 @@ function renderTasks (  ) {
 
 	if ( !state.activeListId ) { return; }
 
-	const activeList = state.lists.find ( l => l.id === state.activeListId );
+	const activeList = state.lists.find ( list => list.id === state.activeListId );
 	if ( !activeList ) { return; }
 
 	activeList.tasks.forEach ( 
@@ -137,10 +137,10 @@ function renderDetails (  ) {
 	
 	if ( state.activeListId && state.activeTaskId ) {
 
-		const activeList = state.lists.find ( l => l.id === state.activeListId );
+		const activeList = state.lists.find ( list => list.id === state.activeListId );
 		if ( activeList ) {
 
-			const activeTask = activeList.tasks.find ( t => t.id === state.activeTaskId );
+			const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
 			if ( activeTask ) {
 
 				taskTitleInput.value = activeTask.title;
@@ -153,7 +153,7 @@ function renderDetails (  ) {
 
 				if ( activeTask.groupId ) {
 
-					const assignedGroup = state.groups.find ( g => g.id === activeTask.groupId );
+					const assignedGroup = state.groups.find ( group => group.id === activeTask.groupId );
 					if ( assignedGroup ) {
 
 						btnGroup.textContent = assignedGroup.name;
@@ -231,7 +231,7 @@ function renderGroups (  ) {
 					
 					e.stopPropagation (  );
 
-					state.groups = state.groups.filter ( g => g.id !== group.id );
+					state.groups = state.groups.filter ( otherGroup => otherGroup.id !== group.id );
 					state.lists.forEach ( 
 						
 						list => { list.tasks.forEach ( task => { if ( task.groupId === group.id ) { task.groupId = null; } } ); } 
@@ -260,10 +260,10 @@ function renderGroups (  ) {
 				
 					if ( state.activeListId && state.activeTaskId ) {
 				
-						const activeList = state.lists.find ( l => l.id === state.activeListId );
+						const activeList = state.lists.find ( list => list.id === state.activeListId );
 						if ( activeList ) {
 
-							const activeTask = activeList.tasks.find ( t => t.id === state.activeTaskId );
+							const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
 							if ( activeTask ) {
 
 								activeTask.groupId = group.id;

@@ -55,12 +55,12 @@ btnCreateTask.addEventListener (
 		
 		}
 
-		const activeList = state.lists.find ( l => l.id === state.activeListId );
+		const activeList = state.lists.find ( list => list.id === state.activeListId );
 		if ( activeList ) {
 
 			if ( state.activeTaskId ) {
 
-				const activeTask = activeList.tasks.find ( t => t.id === state.activeTaskId );
+				const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
 				if ( activeTask ) {
 
 					if ( taskName === '' ) { taskName = activeTask.title; }
@@ -114,10 +114,10 @@ btnRemoveTask.addEventListener (
 	
 		if ( state.activeListId && state.activeTaskId ) {
 		
-			const activeList = state.lists.find ( l => l.id === state.activeListId );
+			const activeList = state.lists.find ( list => list.id === state.activeListId );
 			if ( activeList ) {
 			
-				activeList.tasks = activeList.tasks.filter ( t => t.id !== state.activeTaskId );
+				activeList.tasks = activeList.tasks.filter ( task => task.id !== state.activeTaskId );
 				state.activeTaskId = null;
 				saveData (  );
 				renderAll (  ); 
@@ -194,10 +194,10 @@ btnDate.addEventListener (
 
 		if ( state.activeTaskId ) { 
 			
-			const activeList = state.lists.find ( l => l.id === state.activeListId );
+			const activeList = state.lists.find ( list => list.id === state.activeListId );
 			if ( !activeList ) { return; }
 
-			const activeTask = activeList.tasks.find ( t => t.id === state.activeTaskId );
+			const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
 			if ( !activeTask ) { return; }
 			
 			inputDate.value = activeTask.dueDate || '';

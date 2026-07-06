@@ -5,10 +5,10 @@ btnSaveDate.addEventListener (
 		
 		if ( state.activeListId && state.activeTaskId ) {
 
-			const activeList = state.lists.find ( l => l.id === state.activeListId );
+			const activeList = state.lists.find ( list => list.id === state.activeListId );
 			if ( activeList ) {
 
-				const activeTask = activeList.tasks.find ( t => t.id === state.activeTaskId );
+				const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
 				if ( activeTask ) {
 
 					activeTask.dueDate = inputDate.value;
@@ -38,10 +38,10 @@ btnClearDate.addEventListener (
 	
 		if ( state.activeListId && state.activeTaskId ) {
 	
-			const activeList = state.lists.find ( l => l.id === state.activeListId );
+			const activeList = state.lists.find ( list => list.id === state.activeListId );
 			if ( activeList ) {
 	
-				const activeTask = activeList.tasks.find ( t => t.id === state.activeTaskId );
+				const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
 				if ( activeTask ) {
 	
 					activeTask.dueDate = null;

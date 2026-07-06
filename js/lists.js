@@ -42,7 +42,7 @@ currentListTitle.addEventListener (
 
 		if ( state.activeListId ) {
 
-			const activeList = state.lists.find ( l => l.id === state.activeListId );
+			const activeList = state.lists.find ( list => list.id === state.activeListId );
 			if ( activeList ) { 
 				
 				const newTitle = currentListTitle.textContent.trim (  );
