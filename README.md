@@ -21,32 +21,32 @@ At the moment, the project focuses on the core task management loop. You can cre
 The codebase and UI already suggest several planned features that are not implemented yet:
 
 ### Core task & list polish
-1. SVG icons for task and interface options (buttons, indicators).
-2. Drag-and-drop reordering of tasks and lists.
-3. Tasks automatically move to a separate area when checked and return to the main list when unchecked.
-4. Task ordering by alphabetic order or due date.
-5. Task filtering by user added groups/categories.
+- Add a method to remove the group of a task.
+- Drag-and-drop reordering of tasks and lists.
+- Tasks automatically move to a separate area when checked and return to the main list when unchecked.
+- Task ordering by alphabetic order or due date.
+- Task filtering by user added groups/categories.
 
 ### Dates & time
-6. Reminders with date and time.
-7. Repeating tasks that can reset automatically after completion.
-8. Task details fully editable with reminders and repeating options.
+- Reminders with date and time.
+- Repeating tasks that can reset automatically after completion.
+- Task details fully editable with reminders and repeating options.
 
 ### Cross-cutting polish
-9. Full responsive design and basic customization.
-10. A complete keyboard shortcuts list.
-11. Custom context menu (right-click menu)
+- Full responsive design and basic customization.
+- A complete keyboard shortcuts list.
+- Custom context menu (right-click menu)
 
 ### Accounts & social foundation
-12. Account administration.
-13. Friend management and social challenge mechanics.
+- Account administration. 
+- Friend management and social challenge mechanics.
 
 ### Social features
-14. Task assignment to friends or contacts with adjustable points.
-15. Social points earning system managed by AI, for now is just a display.
-16. Social points economy with rewards, penalties, and future shop-like advantages.
-17. Chat panel for choosing between friends or an AI assistant.
-18. Functional calendar with categories and shared events.
+- Task assignment to friends or contacts with adjustable points.
+- Social points earning system managed by AI, for now is just a display.
+- Social points economy with rewards, penalties, and future shop-like advantages.
+- Chat panel for choosing between friends or an AI assistant.
+- Functional calendar with categories and shared events.
 
 ## Project structure
 
