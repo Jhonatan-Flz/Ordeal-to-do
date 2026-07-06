@@ -10,6 +10,7 @@
 	--hex_1: #cdd7ff95;
 	--hex_2: #c4ebff58;
 	--hex_3: #000000;
+	--hex_4: #636363;
 	font-family: 'Segoe UI', sans-serif, system-ui;
 }
 
@@ -241,6 +242,14 @@ input.click:hover {
 
 .icon-button {
 	width: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.icon-button svg {
+	width: 18px;
+	height: 18px;
 }
 
 /* 5. PSEUDO-ELEMENTS & PSEUDO-CLASSES */
