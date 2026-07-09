@@ -40,6 +40,7 @@ currentListTitle.addEventListener (
 	
 	'blur', (  ) => {
 
+		currentListTitle.scrollLeft = 0;
 		if ( state.activeListId ) {
 
 			const activeList = state.lists.find ( list => list.id === state.activeListId );

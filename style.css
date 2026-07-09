@@ -147,6 +147,14 @@ textarea {
 	box-sizing: border-box;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+#input-date:hover {
+    cursor: pointer;
+}
+
 #title-task {
 	height: 40px;
 	font-size: 18px;
@@ -158,12 +166,17 @@ textarea {
 }
 
 #current-list-title {
-	max-width: 480px;
+	max-width: 450px;
 	width: 100%; 
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	transition: all 0.1s;
+}
+
+#current-list-title:focus {
+	text-overflow: clip;
+	overflow: hidden;
 }
 
 #current-list-title:hover {

@@ -15,19 +15,20 @@ At the moment, the project focuses on the core task management loop. You can cre
 - Switch between the main to-do view and a calendar view placeholder.
 - Date assignment for tasks.
 - Group assigment for tasks.
+- Add a method to remove the group of a task.
 
 ## Planned features
 
 The codebase and UI already suggest several planned features that are not implemented yet:
 
 ### Core task & list polish
-- Add a method to remove the group of a task.
 - Drag-and-drop reordering of tasks and lists.
 - Tasks automatically move to a separate area when checked and return to the main list when unchecked.
-- Task ordering by alphabetic order or due date.
 - Task filtering by user added groups/categories.
 
 ### Dates & time
+- Custom date and time interfaces using Flatpickr.
+- Task ordering by alphabetic order or due date.
 - Reminders with date and time.
 - Repeating tasks that can reset automatically after completion.
 - Task details fully editable with reminders and repeating options.
