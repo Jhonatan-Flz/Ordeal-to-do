@@ -35,6 +35,10 @@ input, button.task {
 	height: 33.6px;
 }
 
+textarea {
+	transition: all 0.4s ease-in-out;
+}
+
 input:focus,
 button:focus,
 h2:focus, 
@@ -147,6 +151,10 @@ textarea {
 	box-sizing: border-box;
 }
 
+textarea[disabled] { 
+	opacity: 0.4;
+}
+
 input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;
 }
@@ -165,13 +173,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	height: auto;
 }
 
+#current-list-title[contenteditable="false"]:hover {
+    cursor: default;
+}
+
 #current-list-title {
 	max-width: 450px;
 	width: 100%; 
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	transition: all 0.1s;
+	transition: all 0.2s;
 }
 
 #current-list-title:focus {
@@ -215,7 +227,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* 4. UTILITY CLASSES */
 .click {
 	cursor: pointer;
-	transition: background 0.2s, color 0.2s, border-color 0.2s;
+	transition: all 0.2s;
 }
 
 .click:hover {

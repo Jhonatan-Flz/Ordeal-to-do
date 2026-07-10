@@ -2,7 +2,6 @@
 function renderLists (  ) {
 
 	boardList.innerHTML = '';
-
 	state.lists.forEach (
 		
 		list => {
@@ -48,9 +47,7 @@ function renderLists (  ) {
 				
 				'click', (  ) => {
 					
-					if ( state.activeListId === list.id ) { state.activeListId = null; } 
-					else { state.activeListId = list.id; }
-
+					state.activeListId = ( state.activeListId === list.id )? null : list.id;
 					state.activeTaskId = null;
 
 					saveData (  );
@@ -135,7 +132,6 @@ function renderTasks (  ) {
 function renderGroups (  ) {
 
 	boardGroup.innerHTML = '';
-
 	state.groups.forEach ( 
 		
 		group => {
@@ -148,7 +144,6 @@ function renderGroups (  ) {
 
 			const deleteBtn = document.createElement ( 'div' );
 			deleteBtn.className = 'delete-list-btn';
-
 			
 			if ( tempGroupId === group.id && !state.activeTaskId ) { groupEl.classList.add ( 'selected' ); } else
 			if ( state.activeTaskId ) {
@@ -164,14 +159,25 @@ function renderGroups (  ) {
 				'click', ( e ) => {
 					
 					e.stopPropagation (  );
-
-					state.groups = state.groups.filter ( otherGroup => otherGroup.id !== group.id );
 					state.lists.forEach ( 
 						
-						list => { list.tasks.forEach ( task => { if ( task.groupId === group.id ) { task.groupId = null; } } ); } 
+						list => { 
+						
+							const activeTask = list.tasks.find ( task => task.id === state.activeTaskId );
+							if ( activeTask && activeTask.groupId === group.id ) { state.activeTaskId = null; }
+
+							list.tasks = list.tasks.filter ( task => task.groupId !== group.id ); 
+						
+						}
+						
+					)
+
+					state.groups = state.groups.filter ( 
+						
+						otherGroup => otherGroup.id !== group.id 
 					
 					);
-
+					
 					if ( tempGroupId === group.id ) {
 
 						tempGroupId = null;
@@ -192,7 +198,7 @@ function renderGroups (  ) {
 				
 				'click', (  ) => {
 				
-					if ( state.activeListId && state.activeTaskId ) {
+					if ( state.activeTaskId ) {
 				
 						const activeList = state.lists.find ( list => list.id === state.activeListId );
 						if ( activeList ) {
@@ -211,9 +217,20 @@ function renderGroups (  ) {
 				
 					} else {
 
-						tempGroupId = group.id;
-						btnGroup.textContent = group.name;
-						btnGroup.classList.add ( 'selected' );
+						if ( tempGroupId === group.id ) {  
+
+							tempGroupId = null;
+							btnGroup.textContent = 'Group'; 
+							btnGroup.classList.remove ( 'selected' );
+						
+						} else {  
+
+							tempGroupId = group.id;
+							btnGroup.textContent = group.name;
+							btnGroup.classList.add ( 'selected' );
+
+						}
+
 						modalGroup.style.display = 'none';
 					
 					}
@@ -234,7 +251,7 @@ function renderGroups (  ) {
 
 function renderDetails (  ) {
 	
-	if ( state.activeListId && state.activeTaskId ) {
+	if ( state.activeTaskId ) {
 
 		const activeList = state.lists.find ( list => list.id === state.activeListId );
 		if ( activeList ) {
@@ -243,7 +260,7 @@ function renderDetails (  ) {
 			if ( activeTask ) {
 
 				taskTitleInput.value = activeTask.title;
-				detailTaskInput.value = activeTask.description || '';
+				detailTaskInput.value = activeTask.description;
 
 				taskTitleInput.style.height = '40px';
 				taskTitleInput.style.height = taskTitleInput.scrollHeight + 'px';
@@ -291,6 +308,15 @@ function renderDetails (  ) {
 		}
 
 	}
+
+	const disabled = !state.activeListId;
+	btnGroup.disabled = disabled;
+	btnDate.disabled = disabled;
+	btnCreateTask.disabled = disabled
+	btnRemoveTask.disabled = disabled
+	detailTaskInput.disabled = disabled;
+	taskTitleInput.disabled = disabled;
+	currentListTitle.contentEditable = !disabled;
 
 	tempGroupId = null;
 	tempDueDate = null;

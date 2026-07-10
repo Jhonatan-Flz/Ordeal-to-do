@@ -22,13 +22,13 @@ At the moment, the project focuses on the core task management loop. You can cre
 The codebase and UI already suggest several planned features that are not implemented yet:
 
 ### Core task & list polish
-- Drag-and-drop reordering of tasks and lists.
+- Drag-and-drop reordering of tasks, lists and groups
 - Tasks automatically move to a separate area when checked and return to the main list when unchecked.
 - Task filtering by user added groups/categories.
+- Task ordering by alphabetic order or due date.
 
 ### Dates & time
 - Custom date and time interfaces using Flatpickr.
-- Task ordering by alphabetic order or due date.
 - Reminders with date and time.
 - Repeating tasks that can reset automatically after completion.
 - Task details fully editable with reminders and repeating options.
