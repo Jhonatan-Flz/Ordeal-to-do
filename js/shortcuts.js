@@ -13,7 +13,7 @@ inputList.addEventListener (
 
 currentListTitle.addEventListener ( 
 	
-	'keydown', function ( e ) { if ( e.key === 'Enter' ) { e.preventDefault (  ); this.blur (  ); } } 
+	'keydown', ( e ) => { if ( e.key === 'Enter' ) { e.preventDefault (  ); currentListTitle.blur (  ); } } 
 
 );
 

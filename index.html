@@ -30,7 +30,7 @@
 		<aside class="sidebar card">
 			<header class="layout_1">
 				<h1 class="title">Ordeal To Do</h1>
-				<button type="button" class="field click" id="toggle-calendar">Calendar</button>
+				<button class="field click" id="toggle-calendar" disabled>Calendar</button>
 			</header>
 			<hr/>
 
@@ -39,7 +39,7 @@
 			<hr/>
 			<div class="layout_2">
 				<input type="text" placeholder="List title" class="field task click" id="input-list" />
-				<button type="button" class="field click icon-button" id="add-list">
+				<button class="field click icon-button" id="add-list">
 					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-add"></use> </svg>
 				</button>
 			</div>
@@ -51,8 +51,8 @@
 				<!-- List title is supposed to be editable and then change the active list title you are working on -->
 				<h2 class="title" id="current-list-title"> </h2>
 				<div class="layout_1">
-					<button type="button" class="field click" id="order" disabled>Order</button>
-					<button type="button" class="field click" id="filter" disabled>Filter</button>
+					<button class="field click" id="order" disabled>Order</button>
+					<button class="field click" id="filter" disabled>Filter</button>
 				</div>
 			</div>
 			<hr/>
@@ -60,7 +60,7 @@
 			<div class="board" id="board-task"></div>
 			<hr/>
 			
-			<button type="button" class="field click task layout_1" id="btn-social-points" disabled>
+			<button class="field click task layout_1" id="btn-social-points" disabled>
 				<span>Social points</span> 
 				<span id="progress-percent">0</span>
 			</button>
@@ -70,55 +70,56 @@
 		<aside class="details card">
 			<div class="layout_1">
 				<div class="layout_2">
-					<button type="button" class="field click" id="create">Create</button>
-					<button type="button" class="field click" id="remove">Remove</button>
+					<button class="field click" id="create">Create</button>
+					<button class="field click" id="remove">Remove</button>
 				</div>
 				<div class="layout_2">
-					<button type="button" class="field click" id="group">Group</button>
-					<button type="button" class="field click" id="date">Date</button>
+					<button class="field click" id="group">Group</button>
+					<button class="field click" id="date">Date</button>
 				</div>
 			</div>
-			<hr />
+			<hr/>
 			
-			<div class="layout_3">
-				<textarea class="field task dark" id="title-task" maxlength="100" style="font-weight: bold;" placeholder="Task title"></textarea>
+			<div class="board">
+				<textarea class="field task dark" id="title-task" maxlength="100" style="font-weight: bold;"></textarea>
 				<textarea id="detail-task" maxlength="600" class="field task dark" style="font-weight: bold;" placeholder="Task description"></textarea>
 			</div>
-			<hr />
+			<hr/>
 			
 			<div class="layout_2">
-				<button type="button" class="field click task" style="width: 100%;" disabled>Assign task to</button>
-				<button type="button" class="field click icon-button" id="reminder">
+				<button class="field click task" style="width: 100%;" disabled>Assign task to</button>
+				<button class="field click icon-button" id="reminder">
 					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-reminder"></use> </svg>
 				</button>
-				<button type="button" class="field click icon-button" id="repeat" disabled>
+				<button class="field click icon-button" id="repeat" disabled>
 					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-repeat"></use> </svg>
 				</button>
 			</div>
 		</aside>
 
 		<!-- Calendar section -->
-		<section class="card" id="calendar"></section>
+		<section class="card" id="calendar">
+		</section>
 
 		<section class="card">
-			<button type="button" class="field click task layout_1" id="btn-chat" disabled>
+			<button class="field click task layout_1" id="btn-chat" disabled>
 				<span>Chat</span>
 			</button>
 		</section>
 
 		<section class="card">
-			<button type="button" class="field click task layout_1" id="Btn-account-stats" disabled>
+			<button class="field click task layout_1" id="Btn-account-stats" disabled>
 				<span>Account stats</span> 
 			</button>
 		</section>
 
 		<section class="card">
 			<div class="layout_2">
-				<button type="button" class="field click task" id="btn-config" style="width: 100%;" disabled> Configuration </button>
-				<button type="button" class="field click icon-button" id="btn-account" disabled>
+				<button class="field click task" id="btn-config" style="width: 100%;" disabled> Configuration </button>
+				<button class="field click icon-button" id="btn-account" disabled>
 					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-account"></use> </svg>
 				</button>
-				<button type="button" class="field click icon-button" id="btn-friends" disabled>
+				<button class="field click icon-button" id="btn-friends" disabled>
 					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-friends"></use> </svg>
 				</button>
 			</div>
@@ -131,14 +132,14 @@
 		<div class="card modal-content">
 			<div class="layout_1">
 				<h2 class="title">Groups</h2>
-				<button type="button" class="field click" id="close-group">Close</button>
+				<button class="field click" id="close-group">Close</button>
 			</div>
 			<hr/>
 			<div class="board" id="board-group" style="height: 240px;"></div>
 			<hr/>
 			<div class="layout_2">
 				<input type="text" placeholder="Group name" class=" field task click" id="input-group"/>
-				<button type="button" class="field click icon-button" id="add-group">
+				<button class="field click icon-button" id="add-group">
 					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-add"></use> </svg>
 				</button>
 			</div>
@@ -150,15 +151,15 @@
 		<div class="card modal-content">
 			<div class="layout_1">
 				<h2 class="title">Set Date</h2>
-				<button type="button" class="field click" id="close-date">Close</button>
+				<button class="field click" id="close-date">Close</button>
 			</div>
 			<hr/>
 			<div class="layout_2">
 				<input type="date" class="field task click dark" id="input-date" onclick="this.showPicker()" />
-				<button type="button" class="field click icon-button" id="save-date">
+				<button class="field click icon-button" id="save-date">
 					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-save"></use> </svg>
 				</button>
-				<button type="button" class="field click icon-button" id="clear-date">
+				<button class="field click icon-button" id="clear-date">
 					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-delete"></use> </svg>
 				</button>
 			</div>

@@ -317,12 +317,16 @@ function renderDetails (  ) {
 	detailTaskInput.disabled = disabled;
 	taskTitleInput.disabled = disabled;
 	currentListTitle.contentEditable = !disabled;
-
+	
 	tempGroupId = null;
 	tempDueDate = null;
 	
 	taskTitleInput.value = '';
 	detailTaskInput.value = '';
+
+	taskTitleInput.placeholder = ( !state.activeListId )? 
+	'Select a list' : 'Task title';
+
 	taskTitleInput.style.height = '40px';
 	btnCreateTask.textContent = 'Create';
 	

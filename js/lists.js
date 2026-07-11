@@ -5,16 +5,8 @@ btnAddList.addEventListener (
 
 		const listName = inputList.value.trim (  );
 
-		if ( listName === '' ) {
-		
-			inputList.placeholder = 'List title is required';
-			inputList.classList.add ( 'input-error' );
-			return;
-		
-		}
-
+		if ( listName === '' ) { inputList.placeholder = 'List title is required'; return; }
 		inputList.placeholder = 'List title';
-		inputList.classList.remove ( 'input-error' );
 
 		const newList = {
 
@@ -62,12 +54,7 @@ currentListTitle.addEventListener (
 );
 
 inputList.addEventListener ( 
-	
-	'input', (  ) => {
-	
-		inputList.placeholder = 'List title';
-		inputList.classList.remove ( 'input-error' );
 
-	} 
+	'input', (  ) => { inputList.placeholder = 'List title'; } 
 
 );
