@@ -6,7 +6,6 @@ btnCloseGroup.addEventListener (
 		modalGroup.style.display = 'none';
 		inputGroup.value = '';
 		inputGroup.placeholder = 'Group name';
-		inputGroup.classList.remove ( 'input-error' );
 
 	} 
 
@@ -17,18 +16,14 @@ btnAddGroup.addEventListener (
 	'click', (  ) => {
 
 		const groupName = inputGroup.value.trim (  );
-
-		if ( groupName === '' ) {
+		if ( !groupName ) {
 
 			inputGroup.placeholder = 'Group name is required';
-			inputGroup.classList.add ( 'input-error' );
 			return;
 		
 		}
 
 		inputGroup.placeholder = 'Group name';
-		inputGroup.classList.remove ( 'input-error' );
-
 		const newGroup = {
 		
 			id: generateId (  ),
@@ -47,6 +42,6 @@ btnAddGroup.addEventListener (
 
 inputGroup.addEventListener ( 
 	
-	'input', (  ) => { inputGroup.placeholder = 'Group name'; inputGroup.classList.remove ( 'input-error' ); } 
+	'input', (  ) => { inputGroup.placeholder = 'Group name'; } 
 
 );
