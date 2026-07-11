@@ -3,7 +3,7 @@ btnSaveDate.addEventListener (
 	
 	'click', (  ) => {
 		
-		if ( state.activeListId && state.activeTaskId ) {
+		if ( state.activeTaskId ) {
 
 			const activeList = state.lists.find ( list => list.id === state.activeListId );
 			if ( activeList ) {
@@ -22,8 +22,13 @@ btnSaveDate.addEventListener (
 		} else {
 			
 			tempDueDate = inputDate.value;
-			btnDate.textContent = tempDueDate; 
-			btnDate.classList.add ( 'selected' );
+			if ( tempDueDate ) { 
+				
+				btnDate.textContent = tempDueDate; 
+				btnDate.classList.add ( 'selected' );
+			
+			}
+			
 			modalDate.style.display = 'none';
 		
 		}
@@ -36,7 +41,7 @@ btnClearDate.addEventListener (
 	
 	'click', (  ) => {
 	
-		if ( state.activeListId && state.activeTaskId ) {
+		if ( state.activeTaskId ) {
 	
 			const activeList = state.lists.find ( list => list.id === state.activeListId );
 			if ( activeList ) {

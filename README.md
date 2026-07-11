@@ -12,10 +12,9 @@ At the moment, the project focuses on the core task management loop. You can cre
 - Mark tasks as completed by clicking the circular indicator.
 - Remove the selected task.
 - Delete entire lists.
-- Switch between the main to-do view and a calendar view placeholder.
 - Date assignment for tasks.
 - Group assigment for tasks.
-- Add a method to remove the group of a task.
+- Method to remove the group of a task.
 
 ## Planned features
 
