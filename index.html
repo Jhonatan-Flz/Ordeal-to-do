@@ -24,13 +24,14 @@
 	</defs>
 	</svg>
 
+	<!-- Main cards -->
 	<div class="layout max-width">
 
 		<!-- left card -->
 		<aside class="sidebar card">
 			<header class="layout_1">
 				<h1 class="title">Ordeal To Do</h1>
-				<button class="field click" id="toggle-calendar" disabled>Calendar</button>
+				<button class="field click" id="calendar" disabled>Calendar</button>
 			</header>
 			<hr/>
 
@@ -97,25 +98,24 @@
 			</div>
 		</aside>
 
-		<!-- Calendar section -->
-		<section class="card" id="calendar">
-		</section>
-
+		<!-- left botton card -->
 		<section class="card">
 			<button class="field click task layout_1" id="btn-chat" disabled>
 				<span>Chat</span>
 			</button>
 		</section>
 
+		<!-- center botton card -->
 		<section class="card">
 			<button class="field click task layout_1" id="Btn-account-stats" disabled>
 				<span>Account stats</span> 
 			</button>
 		</section>
 
+		<!-- right botton card -->
 		<section class="card">
 			<div class="layout_2">
-				<button class="field click task" id="btn-config" style="width: 100%;" disabled> Configuration </button>
+				<button class="field click task" id="btn-config" style="width: 100%;" disabled>Configuration</button>
 				<button class="field click icon-button" id="btn-account" disabled>
 					<svg viewBox="0 0 24 24" fill="none"> <use href="#icon-account"></use> </svg>
 				</button>
@@ -166,6 +166,22 @@
 		</div>
 	</div>
 
+	<!-- Modal window for group filtering -->
+	<div id="modal-filter" class="modal">
+		<div class="card modal-content">
+			<div class="layout_1">
+				<h2 class="title">Filter</h2>
+				<button class="field click" id="close-filter">Close</button>
+			</div>
+			<hr/>
+			<div class="board" id="board-filter" style="height: 240px;"></div>
+			<hr/>
+			<div class="layout_2">
+				<button class="field click task" style="width: 100%;">Clear filters</button>
+			</div>
+		</div>
+	</div>
+
 	<!-- Javascript section, this will use the type=module atribute later when necessary -->
 	<script src="js/elements.js"></script>
 	<script src="js/state.js"></script>
@@ -173,9 +189,16 @@
 	<script src="js/render.js"></script>
 	<script src="js/listeners.js"></script>
 	<script src="js/lists.js"></script>
+
+	<!-- Modal behaviour -->
 	<script src="js/modal-group.js"></script>
 	<script src="js/modal-date.js"></script>
+	<script src="js/modal-filter.js"></script>
+
+	<!-- Shortcuts -->
 	<script src="js/shortcuts.js"></script>
+
+	<!-- Initial page setup -->
 	<script src="js/app.js"></script>
 
 </body>

@@ -22,7 +22,7 @@ The codebase and UI already suggest several planned features that are not implem
 
 ### Core task & list polish
 - Drag-and-drop reordering of tasks, lists and groups
-- Tasks automatically move to a separate area when checked and return to the main list when unchecked.
+- Tasks automatically move to a separate area when checked and return to the main area when unchecked.
 - Task filtering by user added groups/categories.
 - Task ordering by alphabetic order or due date.
 

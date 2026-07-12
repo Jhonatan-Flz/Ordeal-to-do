@@ -131,3 +131,13 @@ btnDate.addEventListener (
 	} 
 
 );
+
+btnFilter.addEventListener ( 
+	
+	'click', (  ) => {
+	
+		modalFilter.style.display = 'flex';
+
+	} 
+
+);

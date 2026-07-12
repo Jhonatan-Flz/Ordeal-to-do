@@ -11,6 +11,7 @@
 	--hex_2: #c4ebff58;
 	--hex_3: #000000;
 	--hex_4: #636363;
+	--hex_5: #ffc4c458;
 	font-family: 'Segoe UI', sans-serif, system-ui;
 }
 
@@ -91,10 +92,17 @@ textarea {
 	transition: background 0.1s, color 0.1s, border-color 0.1s;
 }
 
-.task.selected, .selected {
+.selected,
+.included {
 	color: var(--hex_3);
 	background-color: var(--hex_2);
 	border: 1px solid var(--hex_2);
+}
+
+.excluded {
+	color: var(--hex_3);
+	background-color: var(--hex_5);
+	border: 1px solid var(--hex_5);
 }
 
 .task.done {

@@ -1,9 +1,7 @@
 // Variables
 const sidebarView = document.querySelector ( '.sidebar.card' );
-const btnCalendar = document.getElementById ( 'toggle-calendar' );
 const mainView = document.querySelector ( '.main.card' );
 const detailsView = document.querySelector ( '.details.card' );
-const calendarView = document.getElementById ( 'calendar' );
 
 const inputList = document.getElementById ( 'input-list' );
 const btnAddList = document.getElementById ( 'add-list' );
@@ -31,6 +29,15 @@ const btnCloseDate = document.getElementById ( 'close-date' );
 const inputDate = document.getElementById ( 'input-date' );
 const btnSaveDate = document.getElementById ( 'save-date' );
 const btnClearDate = document.getElementById ( 'clear-date' );
+
+// Filter modal variables
+const btnFilter = document.getElementById ( 'filter' );
+const modalFilter = document.getElementById ( 'modal-filter' );
+const btnCloseFilter = document.getElementById ( 'close-filter' );
+const boardFilter = document.getElementById ( 'board-filter' );
+
+// Sort modal variables
+const btnSort = document.getElementById ( 'sort' );
 
 // Reminder modal variables
 const btnReminder = document.getElementById ( 'reminder' );
