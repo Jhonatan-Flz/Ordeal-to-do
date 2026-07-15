@@ -1,71 +1,66 @@
 // Rendering Functions
 function renderLists (  ) {
 
-	boardList.innerHTML = '';
-	state.lists.forEach (
-		
-		list => {
-		
-			const listEl = document.createElement ( 'div' );
-			listEl.className = 'field task click layout_1';
-
-			if ( list.id === state.activeListId ) {
-
-				listEl.classList.add ( 'selected' );
-				currentListTitle.textContent = list.title;
-			
-			}
-
-			const titleSpan = document.createElement ( 'span' );
-			titleSpan.textContent = list.title;
-
-			const deleteBtn = document.createElement ( 'div' );
-			deleteBtn.className = 'delete-list-btn';
-
-			deleteBtn.addEventListener ( 
+     boardList.innerHTML = '';
+     state.lists.forEach (
+          
+          list => {
+          
+               const listEl = Object.assign ( 
 				
-				'click', ( e ) => {
-
-					e.stopPropagation (  );
-					state.lists = state.lists.filter ( otherList => otherList.id !== list.id );
-					if ( state.activeListId === list.id ) {
-
-						state.activeListId = null;
-						state.activeTaskId = null;
-						currentListTitle.textContent = '';
-					
-					}
-
-					saveData (  );
-					renderAll (  );
-		
-				}
-		
-			);
-
-			listEl.addEventListener ( 
-				
-				'click', (  ) => {
-					
-					state.activeListId = ( state.activeListId === list.id )? null : list.id;
-					state.activeTaskId = null;
-
-					saveData (  );
-					renderAll (  );
-
-				} 
+				document.createElement ( 'div' ), 
+				{ className: `field task click layout_1 ${ list.id === state.activeListId ? 'selected' : '' }` } 
 			
 			);
 
-			listEl.appendChild ( titleSpan );
-			listEl.appendChild ( deleteBtn );
-			boardList.appendChild ( listEl );
-		
-		} 
+               if ( list.id === state.activeListId ) { currentListTitle.textContent = list.title; }
+               const titleSpan = Object.assign ( document.createElement ( 'span' ), { textContent: list.title } );
+               const deleteBtn = Object.assign ( document.createElement ( 'div' ), { className: 'delete-list-btn' } );
 
-	);
+               deleteBtn.addEventListener ( 
+                    
+                    'click', ( e ) => {
 
-	if ( !state.activeListId ) { currentListTitle.textContent = ''; }
+                         e.stopPropagation (  );
+                         state.lists = state.lists.filter ( otherList => otherList.id !== list.id );
+                         if ( state.activeListId === list.id ) {
+
+                              state.activeListId = null;
+                              state.activeTaskId = null;
+                              currentListTitle.textContent = '';
+                         
+                         }
+
+                         saveData (  );
+                         renderAll (  );
+          
+                    }
+          
+               );
+
+               listEl.addEventListener ( 
+                    
+                    'click', (  ) => {
+                         
+                         state.activeListId = ( state.activeListId === list.id )? null : list.id;
+                         state.activeTaskId = null;
+
+                         saveData (  );
+                         renderAll (  );
+
+                    } 
+               
+               );
+
+               attachDragEvents ( listEl, list.id, 'list', state.lists, renderAll );
+               listEl.append ( titleSpan, deleteBtn );
+               boardList.appendChild ( listEl );
+          
+          } 
+
+     );
+
+     if ( !state.activeListId ) { currentListTitle.textContent = ''; }
 
 }
 
@@ -81,17 +76,12 @@ function renderTasks (  ) {
 		
 		task => {
 
-			const taskEl = document.createElement ( 'div' );
-			taskEl.className = 'task field click';
+			const taskEl = document.createElement('div');
+			taskEl.draggable = true;
 
-			if ( task.isDone ) { taskEl.classList.add ( 'done' ); }
-			if ( task.id === state.activeTaskId ) { taskEl.classList.add ( 'selected' ); }
-
-			const circleEl = document.createElement ( 'div' );
-			circleEl.className = 'circle';
-
-			const nameSpan = document.createElement ( 'span' );
-			nameSpan.textContent = task.title;
+			taskEl.className = `task field click ${ task.id === state.activeTaskId ? 'selected' : '' } ${ task.isDone ? 'done' : '' }`;
+			const circleEl = Object.assign ( document.createElement ( 'div' ), { className: 'circle' } );
+			const nameSpan = Object.assign ( document.createElement ( 'span' ), { textContent: task.title } );
 
 			circleEl.addEventListener ( 
 				
@@ -119,8 +109,8 @@ function renderTasks (  ) {
 			
 			);
 
-			taskEl.appendChild ( circleEl );
-			taskEl.appendChild ( nameSpan );
+			attachDragEvents ( taskEl, task.id, 'task', activeList.tasks, renderTasks );
+			taskEl.append ( circleEl, nameSpan );
 			boardTask.appendChild ( taskEl );
 
 		} 
@@ -131,121 +121,111 @@ function renderTasks (  ) {
 
 function renderGroups (  ) {
 
-	boardGroup.innerHTML = '';
-	state.groups.forEach ( 
-		
-		group => {
+     boardGroup.innerHTML = '';
+     state.groups.forEach ( 
+          
+          group => {
 
-			const groupEl = document.createElement ( 'div' );
-			groupEl.className = 'field task click layout_1';
+               const groupEl = Object.assign ( document.createElement ( 'div' ), { className: 'field task click layout_1' } );
+               if ( tempGroupId === group.id && !state.activeTaskId ) { groupEl.classList.add ( 'selected' ); } else
+               if ( state.activeTaskId ) {
 
-			const titleSpan = document.createElement ( 'span' );
-			titleSpan.textContent = group.name;
+                    const activeList = state.lists.find ( list => list.id === state.activeListId );
+                    const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
+                    if ( activeTask && activeTask.groupId === group.id ) { groupEl.classList.add ( 'selected' ); }
 
-			const deleteBtn = document.createElement ( 'div' );
-			deleteBtn.className = 'delete-list-btn';
-			
-			if ( tempGroupId === group.id && !state.activeTaskId ) { groupEl.classList.add ( 'selected' ); } else
-			if ( state.activeTaskId ) {
+               }
 
-				const activeList = state.lists.find ( list => list.id === state.activeListId );
-				const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
-				if ( activeTask.groupId === group.id ) { groupEl.classList.add ( 'selected' ); }
+               const titleSpan = Object.assign ( document.createElement ( 'span' ), { textContent: group.name } );
+               const deleteBtn = Object.assign ( document.createElement ( 'div' ), { className: 'delete-list-btn' } );
 
-			}
+               deleteBtn.addEventListener ( 
+                    
+                    'click', ( e ) => {
+                         
+                         e.stopPropagation (  );
+                         state.lists.forEach ( 
+                              
+                              list => { 
+                              
+                                   const activeTask = list.tasks.find ( task => task.id === state.activeTaskId );
+                                   if ( activeTask && activeTask.groupId === group.id ) { state.activeTaskId = null; }
 
-			deleteBtn.addEventListener ( 
-				
-				'click', ( e ) => {
-					
-					e.stopPropagation (  );
-					state.lists.forEach ( 
-						
-						list => { 
-						
-							const activeTask = list.tasks.find ( task => task.id === state.activeTaskId );
-							if ( activeTask && activeTask.groupId === group.id ) { state.activeTaskId = null; }
+                                   list.tasks = list.tasks.filter ( task => task.groupId !== group.id ); 
+                              
+                              }
+                              
+                         )
 
-							list.tasks = list.tasks.filter ( task => task.groupId !== group.id ); 
-						
-						}
-						
-					)
+                         state.groups = state.groups.filter ( otherGroup => otherGroup.id !== group.id  );
+                         if ( tempGroupId === group.id ) {
 
-					state.groups = state.groups.filter ( 
-						
-						otherGroup => otherGroup.id !== group.id 
-					
-					);
-					
-					if ( tempGroupId === group.id ) {
+                              tempGroupId = null;
+                              btnGroup.textContent = 'Group';
+                              btnGroup.classList.remove ( 'selected' );
+                         
+                         }
 
-						tempGroupId = null;
-						btnGroup.textContent = 'Group';
-						btnGroup.classList.remove ( 'selected' );
-					
-					}
+                         saveData (  );
+                         renderGroups (  );
+                         renderAll (  );
+               
+                    } 
+               
+               );
 
-					saveData (  );
-					renderGroups (  );
-					renderAll (  );
-			
-				} 
-			
-			);
+               groupEl.addEventListener ( 
+                    
+                    'click', (  ) => {
+                    
+                         if ( state.activeTaskId ) {
+                    
+                              const activeList = state.lists.find ( list => list.id === state.activeListId );
+                              if ( activeList ) {
 
-			groupEl.addEventListener ( 
-				
-				'click', (  ) => {
-				
-					if ( state.activeTaskId ) {
-				
-						const activeList = state.lists.find ( list => list.id === state.activeListId );
-						if ( activeList ) {
+                                   const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
+                                   if ( activeTask ) {
 
-							const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
-							if ( activeTask ) {
+                                        activeTask.groupId = ( activeTask.groupId === group.id )? null : group.id;
+                                        saveData (  );
+                                        renderDetails (  );
+                                        modalGroup.style.display = 'none';
+                                   
+                                   }
 
-								activeTask.groupId = ( activeTask.groupId === group.id )? null : group.id;
-								saveData (  );
-								renderDetails (  );
-								modalGroup.style.display = 'none';
-							
-							}
+                              }
+                    
+                         } else {
 
-						}
-				
-					} else {
+                              if ( tempGroupId === group.id ) {  
 
-						if ( tempGroupId === group.id ) {  
+                                   tempGroupId = null;
+                                   btnGroup.textContent = 'Group'; 
+                                   btnGroup.classList.remove ( 'selected' );
+                              
+                              } else {  
 
-							tempGroupId = null;
-							btnGroup.textContent = 'Group'; 
-							btnGroup.classList.remove ( 'selected' );
-						
-						} else {  
+                                   tempGroupId = group.id;
+                                   btnGroup.textContent = group.name;
+                                   btnGroup.classList.add ( 'selected' );
 
-							tempGroupId = group.id;
-							btnGroup.textContent = group.name;
-							btnGroup.classList.add ( 'selected' );
+                              }
 
-						}
+                              modalGroup.style.display = 'none';
+                         
+                         }
+                    
+                    } 
+          
+               );
 
-						modalGroup.style.display = 'none';
-					
-					}
-				
-				} 
-		
-			);
+               attachDragEvents ( groupEl, group.id, 'group', state.groups, renderGroups );
+               groupEl.append ( titleSpan, deleteBtn );
+               boardGroup.appendChild ( groupEl );
+          
+          } 
 
-			groupEl.appendChild ( titleSpan );
-			groupEl.appendChild ( deleteBtn );
-			boardGroup.appendChild ( groupEl );
-		
-		} 
-
-	);
+     );
 
 }
 

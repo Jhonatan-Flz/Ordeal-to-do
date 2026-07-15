@@ -9,16 +9,16 @@
 	--muted_5: #eeeeee7d;
 	--hex_1: #cdd7ff95;
 	--hex_2: #c4ebff58;
-	--hex_3: #000000;
+	--hex_3: #d3cdff81;
 	--hex_4: #636363;
-	--hex_5: #ffc4c458;
+	--hex_5: #000000;
 	font-family: 'Segoe UI', sans-serif, system-ui;
 }
 
 /* 2. BASE / HTML ELEMENTS */
 body {
 	background: var(--bg);
-	color: var(--hex_3);
+	color: var(--hex_5);
 	user-select: none;
 	font-size: 12px;
 	height: 100%;
@@ -89,20 +89,21 @@ textarea {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-	transition: background 0.1s, color 0.1s, border-color 0.1s;
+	transition: background-color 0.1s, color 0.1s, border-color 0.1s;
 }
 
 .selected,
 .included {
-	color: var(--hex_3);
+	color: var(--hex_5);
 	background-color: var(--hex_2);
 	border: 1px solid var(--hex_2);
 }
 
+.drag-over,
 .excluded {
-	color: var(--hex_3);
-	background-color: var(--hex_5);
-	border: 1px solid var(--hex_5);
+	color: var(--hex_5);
+	background-color: var(--hex_3);
+	border: 1px solid var(--hex_3);
 }
 
 .task.done {
@@ -122,7 +123,7 @@ textarea {
 	opacity: 0.5;
 	border-radius: 50%;
 	cursor: pointer;
-	transition: background 0.4s, color 0.4s, border-color 0.4s;
+	transition: background-color 0.4s, color 0.4s, border-color 0.4s;
 	flex-shrink: 0;
 }
 
@@ -132,14 +133,14 @@ textarea {
 
 .delete-list-btn:hover,
 .circle:hover {
-	border-color: var(--hex_3);
+	border-color: var(--hex_5);
 	scale: 1.1;
 }
 
 .task.done .circle {
 	opacity: 0.4;
 	background-color: var(--muted_1);
-	border-color: var(--hex_3);
+	border-color: var(--hex_5);
 }
 
 .task.done .circle:hover {
@@ -201,7 +202,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 #current-list-title:hover {
 	cursor: text;
-	color: var(--hex_3);
+	color: var(--hex_5);
 }
 
 #group {
@@ -265,7 +266,7 @@ input.click:hover {
 	width: 100%;
 	resize: none;
 	font: inherit;
-	color: var(--hex_3);
+	color: var(--hex_5);
 	background-color: var(--muted_5);
 }
 
@@ -295,7 +296,7 @@ input.click:hover {
 }
 
 /* 6. Calendar related styles */
-#calendar {
+#calendar-display {
 	grid-column: span 2;
 	display: none;
 }

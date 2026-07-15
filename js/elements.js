@@ -3,6 +3,7 @@ const sidebarView = document.querySelector ( '.sidebar.card' );
 const mainView = document.querySelector ( '.main.card' );
 const detailsView = document.querySelector ( '.details.card' );
 
+const calendar = document.getElementById ( 'calendar' );
 const inputList = document.getElementById ( 'input-list' );
 const btnAddList = document.getElementById ( 'add-list' );
 const boardList = document.getElementById ( 'board-list' );
@@ -48,3 +49,11 @@ const btnRepeat = document.getElementById ( 'repeat' );
 // Temporary variables to hold group and date for new tasks
 let tempGroupId = null;
 let tempDueDate = null;
+
+// Dragg and drop variable
+let dragData = {
+
+	type: null,
+	id: null
+
+};

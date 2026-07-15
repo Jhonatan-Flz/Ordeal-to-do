@@ -21,7 +21,8 @@ At the moment, the project focuses on the core task management loop. You can cre
 The codebase and UI already suggest several planned features that are not implemented yet:
 
 ### Core task & list polish
-- Drag-and-drop reordering of tasks, lists and groups
+- Drag-and-drop reordering of tasks, lists and groups.
+- Drag-and-drop task relocation to another list.
 - Tasks automatically move to a separate area when checked and return to the main area when unchecked.
 - Task filtering by user added groups/categories.
 - Task ordering by alphabetic order or due date.
