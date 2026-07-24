@@ -24,12 +24,90 @@ function reorderById ( items, draggedId, targetId, callback ) {
 
 function attachDragEvents ( element, id, type, items, render ) {
 
+	// We make the element draggable onto another, regardless of its type
 	element.draggable = true;
-	element.addEventListener ( 'dragstart', ( e ) => { dragData.type = type; dragData.id = id; e.dataTransfer.setData ( 'text/plain', '' ); } );
-	element.addEventListener ( 'dragover', ( e ) => { e.preventDefault (  ); } );
-	element.addEventListener ( 'dragenter', (  ) => { element.classList.add ( 'drag-over' ); } );
-	element.addEventListener ( 'dragleave', (  ) => { element.classList.remove ( 'drag-over' ); } );
-	element.addEventListener ( 'dragend', (  ) => { element.classList.remove ( 'drag-over' ); dragData.type = null; dragData.id = null; } );
-	element.addEventListener ( 'drop', ( e ) => { reorderById ( items, dragData.id, id, render ); } );
+
+	// Also, a counter so drag isnt interrupted because of child elements 
+	let dragCounter = 0;
+
+	// Creating a blank image to hide the default drag ghost image
+	const emptyImage = new Image (  ); emptyImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+	
+	element.addEventListener ( 
+		
+		'dragstart', ( e ) => { 
+		
+			e.dataTransfer.setDragImage ( emptyImage, 0, 0 );
+			dragData.type = type; 
+			dragData.id = id; 
+			e.dataTransfer.setData ( 'text/plain', '' ); 
+		
+		} 
+	
+	);
+	
+	element.addEventListener ( 
+		
+		'dragover', ( e ) => { 
+			
+			e.preventDefault (  ); 
+		
+		} 
+	
+	);
+	
+	element.addEventListener ( 
+		
+		'dragenter', (  ) => { 
+			
+			dragCounter++;
+			element.classList.add ( 'drag-over' ); 
+		
+		} 
+	
+	);
+	
+	element.addEventListener ( 
+		
+		'dragleave', (  ) => { 
+			
+			dragCounter--;
+
+			if ( dragCounter <= 0 ) {
+
+				dragCounter = 0;
+				element.classList.remove ( 'drag-over' );
+
+			}
+		
+		} 
+	
+	);
+	
+	element.addEventListener ( 
+		
+		'dragend', (  ) => { 
+			
+			dragCounter = 0;
+			element.classList.remove ( 'drag-over' ); 
+			dragData.type = null; 
+			dragData.id = null; 
+		
+		} 
+	
+	);
+	
+	element.addEventListener ( 
+		
+		'drop', ( e ) => { 
+			
+			e.preventDefault (  );
+			dragCounter = 0;
+			element.classList.remove ( 'drag-over' );
+			if ( dragData.id && dragData.id !== id ) { reorderById ( items, dragData.id, id, render ); }
+		
+		} 
+	
+	);
 
 }

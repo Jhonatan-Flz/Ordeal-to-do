@@ -23,6 +23,7 @@ body {
 	font-size: 12px;
 	height: 100%;
 	overflow: hidden;
+	/* animation: pageFadeIn 0.3s ease-in-out; */
 }
 
 hr {
@@ -133,6 +134,7 @@ textarea {
 .delete-list-btn:hover,
 .circle:hover {
 	border-color: var(--hex_5);
+	background-color: var(--hex_5);
 	scale: 1.1;
 }
 
@@ -320,3 +322,10 @@ input.click:hover {
 	justify-content: flex-start;
 	gap: 8px;
 }
+
+/* 8. UX */
+/* @keyframes pageFadeIn {
+
+	from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0px); }
+
+} */
