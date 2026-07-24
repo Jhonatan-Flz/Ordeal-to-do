@@ -100,16 +100,14 @@ textarea {
 	border: 1px solid var(--hex_2);
 }
 
-.drag-over,
-.excluded {
+.drag-over {
 	color: var(--hex_5);
 	background-color: var(--hex_3);
 	border: 1px solid var(--hex_3);
 }
 
 .task.done {
-	opacity: 0.4;
-	text-decoration: line-through;
+	opacity: 0.3;
 }
 
 .task span {
@@ -174,8 +172,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 #title-task {
+	font-size: 17px;
 	height: 40px;
-	font-size: 18px;
 }
 
 #detail-task {

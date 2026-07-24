@@ -52,7 +52,7 @@
 				<h2 class="title" id="current-list-title"> </h2>
 				<div class="layout_1">
 					<button class="field click" id="order" disabled>Order</button>
-					<button class="field click" id="filter" disabled>Filter</button>
+					<button class="field click" id="filter">Filter</button>
 				</div>
 			</div>
 			<hr/>
@@ -80,7 +80,7 @@
 			<hr/>
 			
 			<div class="board">
-				<textarea class="field task dark" id="title-task" maxlength="100" style="font-weight: bold;"></textarea>
+				<textarea id="title-task" maxlength="100" class="field task dark" style="font-weight: bold;"></textarea>
 				<textarea id="detail-task" maxlength="600" class="field task dark" style="font-weight: bold;" placeholder="Task description"></textarea>
 			</div>
 			<hr/>
@@ -170,14 +170,13 @@
 		<div class="card modal-content">
 			<div class="layout_1">
 				<h2 class="title">Filter</h2>
-				<button class="field click" id="close-filter">Close</button>
+				<div class="layout_1">
+					<button class="field click" id="clear-filter">Clear</button>
+					<button class="field click" id="close-filter">Close</button>
+				</div>
 			</div>
 			<hr/>
 			<div class="board" id="board-filter" style="height: 240px;"></div>
-			<hr/>
-			<div class="layout_2">
-				<button class="field click task" style="width: 100%;">Clear filters</button>
-			</div>
 		</div>
 	</div>
 

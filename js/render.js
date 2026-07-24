@@ -72,13 +72,12 @@ function renderTasks (  ) {
 	const activeList = state.lists.find ( list => list.id === state.activeListId );
 	if ( !activeList ) { return; }
 
-	activeList.tasks.forEach ( 
+	const tasksToRender = !includedGroups.length? activeList.tasks : activeList.tasks.filter ( task => includedGroups.includes ( task.groupId ) );
+	tasksToRender.forEach ( 
 		
 		task => {
 
 			const taskEl = document.createElement('div');
-			taskEl.draggable = true;
-
 			taskEl.className = `task field click ${ task.id === state.activeTaskId ? 'selected' : '' } ${ task.isDone ? 'done' : '' }`;
 			const circleEl = Object.assign ( document.createElement ( 'div' ), { className: 'circle' } );
 			const nameSpan = Object.assign ( document.createElement ( 'span' ), { textContent: task.title } );
@@ -113,7 +112,7 @@ function renderTasks (  ) {
 			taskEl.append ( circleEl, nameSpan );
 			boardTask.appendChild ( taskEl );
 
-		} 
+		}
 
 	);
 
@@ -139,89 +138,89 @@ function renderGroups (  ) {
                const titleSpan = Object.assign ( document.createElement ( 'span' ), { textContent: group.name } );
                const deleteBtn = Object.assign ( document.createElement ( 'div' ), { className: 'delete-list-btn' } );
 
-               deleteBtn.addEventListener ( 
-                    
-                    'click', ( e ) => {
-                         
-                         e.stopPropagation (  );
-                         state.lists.forEach ( 
-                              
-                              list => { 
-                              
-                                   const activeTask = list.tasks.find ( task => task.id === state.activeTaskId );
-                                   if ( activeTask && activeTask.groupId === group.id ) { state.activeTaskId = null; }
+			deleteBtn.addEventListener ( 
+				
+				'click', ( e ) => {
+					
+					e.stopPropagation (  );
+					state.lists.forEach ( 
+						
+						list => { 
+						
+							const activeTask = list.tasks.find ( task => task.id === state.activeTaskId );
+							if ( activeTask && activeTask.groupId === group.id ) { state.activeTaskId = null; }
 
-                                   list.tasks = list.tasks.filter ( task => task.groupId !== group.id ); 
-                              
-                              }
-                              
-                         )
+							list.tasks = list.tasks.filter ( task => task.groupId !== group.id ); 
+						
+						}
+						
+					)
 
-                         state.groups = state.groups.filter ( otherGroup => otherGroup.id !== group.id  );
-                         if ( tempGroupId === group.id ) {
+					state.groups = state.groups.filter ( otherGroup => otherGroup.id !== group.id  );
+					if ( tempGroupId === group.id ) {
 
-                              tempGroupId = null;
-                              btnGroup.textContent = 'Group';
-                              btnGroup.classList.remove ( 'selected' );
-                         
-                         }
+						tempGroupId = null;
+						btnGroup.textContent = 'Group';
+						btnGroup.classList.remove ( 'selected' );
+					
+					}
 
-                         saveData (  );
-                         renderGroups (  );
-                         renderAll (  );
-               
-                    } 
-               
-               );
+					saveData (  );
+					renderGroups (  );
+					renderAll (  );
+			
+				} 
+			
+			);
 
-               groupEl.addEventListener ( 
-                    
-                    'click', (  ) => {
-                    
-                         if ( state.activeTaskId ) {
-                    
-                              const activeList = state.lists.find ( list => list.id === state.activeListId );
-                              if ( activeList ) {
+			groupEl.addEventListener ( 
+					
+				'click', (  ) => {
+				
+					if ( state.activeTaskId ) {
+				
+						const activeList = state.lists.find ( list => list.id === state.activeListId );
+						if ( activeList ) {
 
-                                   const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
-                                   if ( activeTask ) {
+							const activeTask = activeList.tasks.find ( task => task.id === state.activeTaskId );
+							if ( activeTask ) {
 
-                                        activeTask.groupId = ( activeTask.groupId === group.id )? null : group.id;
-                                        saveData (  );
-                                        renderDetails (  );
-                                        modalGroup.style.display = 'none';
-                                   
-                                   }
+								activeTask.groupId = ( activeTask.groupId === group.id )? null : group.id;
+								saveData (  );
+								renderDetails (  );
+								modalGroup.style.display = 'none';
+							
+							}
 
-                              }
-                    
-                         } else {
+						}
+				
+					} else {
 
-                              if ( tempGroupId === group.id ) {  
+						if ( tempGroupId === group.id ) {  
 
-                                   tempGroupId = null;
-                                   btnGroup.textContent = 'Group'; 
-                                   btnGroup.classList.remove ( 'selected' );
-                              
-                              } else {  
+							tempGroupId = null;
+							btnGroup.textContent = 'Group'; 
+							btnGroup.classList.remove ( 'selected' );
+						
+						} else {  
 
-                                   tempGroupId = group.id;
-                                   btnGroup.textContent = group.name;
-                                   btnGroup.classList.add ( 'selected' );
+							tempGroupId = group.id;
+							btnGroup.textContent = group.name;
+							btnGroup.classList.add ( 'selected' );
 
-                              }
+						}
 
-                              modalGroup.style.display = 'none';
-                         
-                         }
-                    
-                    } 
-          
-               );
+						modalGroup.style.display = 'none';
+					
+					}
+				
+				} 
+			
+			);
 
-               attachDragEvents ( groupEl, group.id, 'group', state.groups, renderGroups );
-               groupEl.append ( titleSpan, deleteBtn );
-               boardGroup.appendChild ( groupEl );
+			attachDragEvents ( groupEl, group.id, 'group', state.groups, renderGroups );
+			groupEl.append ( titleSpan, deleteBtn );
+			boardGroup.appendChild ( groupEl );
           
           } 
 
@@ -243,7 +242,7 @@ function renderDetails (  ) {
 				detailTaskInput.value = activeTask.description;
 
 				taskTitleInput.style.height = '40px';
-				taskTitleInput.style.height = taskTitleInput.scrollHeight + 'px';
+				taskTitleInput.style.height = taskTitleInput.scrollHeight + 2 + 'px';
 
 				btnCreateTask.textContent = 'Save';
 
@@ -292,9 +291,11 @@ function renderDetails (  ) {
 	const disabled = !state.activeListId;
 	btnGroup.disabled = disabled;
 	btnDate.disabled = disabled;
-	btnCreateTask.disabled = disabled
-	btnRemoveTask.disabled = disabled
+	btnCreateTask.disabled = disabled;
+	btnRemoveTask.disabled = disabled;
 	detailTaskInput.disabled = disabled;
+	btnFilter.disabled = disabled;
+	btnOrder.disabled = true;
 	taskTitleInput.disabled = disabled;
 	currentListTitle.contentEditable = !disabled;
 	
@@ -316,4 +317,86 @@ function renderDetails (  ) {
 	btnDate.textContent = 'Date';
 	btnDate.classList.remove ( 'selected' );
 	
+}
+
+function renderFilter (  ) {
+
+     boardFilter.innerHTML = '';
+     state.groups.forEach ( 
+          
+          group => {
+
+               const groupEl = Object.assign ( document.createElement ( 'div' ), { className: 'field task click layout_1' } );
+               const titleSpan = Object.assign ( document.createElement ( 'span' ), { textContent: group.name } );
+               const deleteBtn = Object.assign ( document.createElement ( 'div' ), { className: 'delete-list-btn' } );
+               if ( includedGroups.includes ( group.id ) ) { groupEl.classList.add ( 'included' ); }
+
+			deleteBtn.addEventListener ( 
+				
+				'click', ( e ) => {
+					
+					e.stopPropagation (  );
+					state.lists.forEach ( 
+						
+						list => { 
+						
+							const activeTask = list.tasks.find ( task => task.id === state.activeTaskId );
+							if ( activeTask && activeTask.groupId === group.id ) { state.activeTaskId = null; }
+
+							list.tasks = list.tasks.filter ( task => task.groupId !== group.id ); 
+						
+						}
+						
+					)
+
+					state.groups = state.groups.filter ( otherGroup => otherGroup.id !== group.id  );
+					if ( tempGroupId === group.id ) {
+
+						tempGroupId = null;
+						btnGroup.textContent = 'Group';
+						btnGroup.classList.remove ( 'selected' );
+					
+					}
+
+					includedGroups = includedGroups.filter ( id => id !== group.id );
+					saveData (  );
+					renderFilter (  );
+					renderAll (  );
+			
+				} 
+			
+			);
+
+			groupEl.addEventListener ( 
+					
+				'click', (  ) => {
+				
+					if ( includedGroups.includes ( group.id ) ) { 
+						
+						groupEl.classList.remove ( 'included' );
+						includedGroups = includedGroups.filter ( id => id !== group.id );
+					
+					} else { 
+						
+						groupEl.classList.add ( 'included' );
+						includedGroups.push ( group.id );
+					
+					}
+
+					if ( !includedGroups.length ) { btnFilter.classList.remove ( 'selected' ); } else { btnFilter.classList.add ( 'selected' ); }
+					renderFilter (  );
+					renderTasks (  );
+
+				}
+			
+			);
+
+			attachDragEvents ( groupEl, group.id, 'group', state.groups, renderFilter );
+			groupEl.append ( titleSpan, deleteBtn );
+			boardFilter.appendChild ( groupEl );
+          
+          } 
+
+     );
+
 }

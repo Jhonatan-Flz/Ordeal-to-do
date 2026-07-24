@@ -34,11 +34,12 @@ const btnClearDate = document.getElementById ( 'clear-date' );
 // Filter modal variables
 const btnFilter = document.getElementById ( 'filter' );
 const modalFilter = document.getElementById ( 'modal-filter' );
+const btnClearFilter = document.getElementById ( 'clear-filter' );
 const btnCloseFilter = document.getElementById ( 'close-filter' );
 const boardFilter = document.getElementById ( 'board-filter' );
 
 // Sort modal variables
-const btnSort = document.getElementById ( 'sort' );
+const btnOrder = document.getElementById ( 'order' );
 
 // Reminder modal variables
 const btnReminder = document.getElementById ( 'reminder' );
@@ -49,6 +50,9 @@ const btnRepeat = document.getElementById ( 'repeat' );
 // Temporary variables to hold group and date for new tasks
 let tempGroupId = null;
 let tempDueDate = null;
+
+// Array to track the filtered groups
+let includedGroups = [  ]
 
 // Dragg and drop variable
 let dragData = {

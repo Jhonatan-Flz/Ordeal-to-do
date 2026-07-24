@@ -8,3 +8,17 @@ btnCloseFilter.addEventListener (
 	} 
 
 );
+
+btnClearFilter.addEventListener (
+
+
+	'click', (  ) => {
+
+		btnFilter.classList.remove ( 'selected' );
+		includedGroups = [  ];
+		renderFilter (  );
+		renderTasks (  );
+
+	}
+
+)

@@ -16,6 +16,7 @@ At the moment, the project focuses on the core task management loop. You can cre
 - Group assigment for tasks.
 - Method to remove the group of a task.
 - Drag-and-drop reordering of tasks, lists and groups.
+- Task filtering by user added groups/categories.
 
 ## Planned features
 
@@ -24,7 +25,6 @@ The codebase and UI already suggest several planned features that are not implem
 ### Core task & list polish
 - Drag-and-drop task relocation to another list.
 - Tasks automatically move to a separate area when checked and return to the main area when unchecked.
-- Task filtering by user added groups/categories.
 - Task ordering by alphabetic order or due date.
 
 ### Dates & time

@@ -21,13 +21,7 @@ btnCreateTask.addEventListener (
 
 		} else {
 		
-			if ( !taskName ) { 
-
-				taskTitleInput.placeholder = 'Task title is required'; 
-				return; 
-			
-			}
-			
+			if ( !taskName ) { taskTitleInput.placeholder = 'Task title is required'; return; }
 			const newTask = {
 
 				id: generateId (  ),
@@ -94,9 +88,9 @@ taskTitleInput.addEventListener (
 	
 	'input', (  ) => {
 
-		this.style.height = '40px';
-		this.style.height = taskTitleInput.scrollHeight + 'px';
-		this.placeholder = 'Task title';
+		taskTitleInput.style.height = '40px';
+		taskTitleInput.style.height = taskTitleInput.scrollHeight + 2 + 'px';
+		taskTitleInput.placeholder = 'Task title';
 
 	} 
 
@@ -107,7 +101,7 @@ btnGroup.addEventListener (
 	'click', (  ) => {
 	
 		modalGroup.style.display = 'flex';
-		renderGroups (  );
+		renderGroups ( boardGroup );
 
 	} 
 
@@ -137,6 +131,7 @@ btnFilter.addEventListener (
 	'click', (  ) => {
 	
 		modalFilter.style.display = 'flex';
+		renderFilter (  );
 
 	} 
 
