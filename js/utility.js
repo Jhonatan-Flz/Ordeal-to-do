@@ -98,16 +98,42 @@ function attachDragEvents ( element, id, type, items, render ) {
 	);
 	
 	element.addEventListener ( 
-		
+	
 		'drop', ( e ) => { 
-			
-			e.preventDefault (  );
-			dragCounter = 0;
-			element.classList.remove ( 'drag-over' );
-			if ( dragData.id && dragData.id !== id ) { reorderById ( items, dragData.id, id, render ); }
+		
+			if ( dragData.type === 'task' && type === 'list' ) {
+
+				moveTaskToList ( dragData.id, state.activeListId, id );
+
+				// If we are moving the selected task then is unselected
+				if ( dragData.id === state.activeTaskId ) { state.activeTaskId = null; }
+				
+				renderAll (  );
+				return;
+
+			}
+
+			reorderById ( items, dragData.id, id, render ); 
 		
 		} 
-	
+
 	);
+
+}
+
+function moveTaskToList ( taskId, sourceListId, targetListId ) {
+
+	const sourceList = state.lists.find ( list => list.id === sourceListId );
+
+	const targetList = state.lists.find ( list => list.id === targetListId );
+	if ( !sourceList || !targetList ) { return; }
+
+	const taskIndex = sourceList.tasks.findIndex ( task => task.id === taskId );
+	if ( taskIndex === -1 ) { return; }
+
+	const [ movedTask ] = sourceList.tasks.splice ( taskIndex, 1 );
+	targetList.tasks.push ( movedTask );
+
+	saveData (  );
 
 }
