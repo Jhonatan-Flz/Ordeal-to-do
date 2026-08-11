@@ -72,7 +72,7 @@ function renderTasks (  ) {
 	const activeList = state.lists.find ( list => list.id === state.activeListId );
 	if ( !activeList ) { return; }
 
-	const tasksToRender = !includedGroups.length? activeList.tasks : activeList.tasks.filter ( task => includedGroups.includes ( task.groupId ) );
+	const tasksToRender = !selectedGroups.length? activeList.tasks : activeList.tasks.filter ( task => selectedGroups.includes ( task.groupId ) );
 	tasksToRender.forEach ( 
 		
 		task => {
@@ -329,7 +329,7 @@ function renderFilter (  ) {
                const groupEl = Object.assign ( document.createElement ( 'div' ), { className: 'field task click layout_1' } );
                const titleSpan = Object.assign ( document.createElement ( 'span' ), { textContent: group.name } );
                const deleteBtn = Object.assign ( document.createElement ( 'div' ), { className: 'delete-list-btn' } );
-               if ( includedGroups.includes ( group.id ) ) { groupEl.classList.add ( 'included' ); }
+               if ( selectedGroups.includes ( group.id ) ) { groupEl.classList.add ( 'selected' ); }
 
 			deleteBtn.addEventListener ( 
 				
@@ -358,7 +358,7 @@ function renderFilter (  ) {
 					
 					}
 
-					includedGroups = includedGroups.filter ( id => id !== group.id );
+					selectedGroups = selectedGroups.filter ( id => id !== group.id );
 					saveData (  );
 					renderFilter (  );
 					renderAll (  );
@@ -371,19 +371,19 @@ function renderFilter (  ) {
 					
 				'click', (  ) => {
 				
-					if ( includedGroups.includes ( group.id ) ) { 
+					if ( selectedGroups.includes ( group.id ) ) { 
 						
-						groupEl.classList.remove ( 'included' );
-						includedGroups = includedGroups.filter ( id => id !== group.id );
+						groupEl.classList.remove ( 'selected' );
+						selectedGroups = selectedGroups.filter ( id => id !== group.id );
 					
 					} else { 
 						
-						groupEl.classList.add ( 'included' );
-						includedGroups.push ( group.id );
+						groupEl.classList.add ( 'selected' );
+						selectedGroups.push ( group.id );
 					
 					}
 
-					if ( !includedGroups.length ) { btnFilter.classList.remove ( 'selected' ); } else { btnFilter.classList.add ( 'selected' ); }
+					if ( !selectedGroups.length ) { btnFilter.classList.remove ( 'selected' ); } else { btnFilter.classList.add ( 'selected' ); }
 					renderFilter (  );
 					renderTasks (  );
 

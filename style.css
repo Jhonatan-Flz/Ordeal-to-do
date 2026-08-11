@@ -94,8 +94,7 @@ textarea {
 	transition: background-color 0.1s, color 0.1s, border-color 0.1s;
 }
 
-.selected,
-.included {
+.selected {
 	color: var(--hex_5);
 	background-color: var(--hex_2);
 	border: 1px solid var(--hex_2);

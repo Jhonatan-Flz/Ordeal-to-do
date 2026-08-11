@@ -11,11 +11,10 @@ btnCloseFilter.addEventListener (
 
 btnClearFilter.addEventListener (
 
-
 	'click', (  ) => {
 
 		btnFilter.classList.remove ( 'selected' );
-		includedGroups = [  ];
+		selectedGroups = [  ];
 		renderFilter (  );
 		renderTasks (  );
 

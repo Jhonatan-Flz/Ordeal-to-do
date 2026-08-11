@@ -52,7 +52,7 @@ let tempGroupId = null;
 let tempDueDate = null;
 
 // Array to track the filtered groups
-let includedGroups = [  ]
+let selectedGroups = [  ]
 
 // Dragg and drop variable
 let dragData = {
